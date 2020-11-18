@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ * Developed by Lawrence Chiang and Steven Lee
+  ~ * Copyright © 2020 Swann Communications. All rights reserved.
+  ~ * Last modified Steven 16/03/20 11:43 AM
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_bottom_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/title_menu_search" />
+
+    <item
+        android:id="@+id/navigation_bottom_collections"
+        android:icon="@drawable/ic_collections"
+        android:title="@string/title_menu_collections" />
+
+    <item
+        android:id="@+id/navigation_bottom_edit"
+        android:icon="@drawable/ic_edit"
+        android:title="@string/title_menu_edit" />
+
+    <item
+        android:id="@+id/navigation_bottom_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/title_menu_profile" />
+</menu>

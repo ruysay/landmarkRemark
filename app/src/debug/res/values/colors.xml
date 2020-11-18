@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ * Developed by Lawrence Chiang and Steven Lee
+  ~ * Copyright © 2020 Swann Communications. All rights reserved.
+  ~ * Last modified Steven 22/05/20 12:16 PM
+  -->
+
+<resources>
+    <color name="colorPrimary">@color/white</color>
+    <color name="colorPrimaryDark">@color/black</color>
+    <color name="colorAccent">@color/light_blue</color>
+
+    <color name="white">#FFF</color>
+    <color name="black">#000</color>
+    <color name="gray">#747474</color>
+    <color name="dark_gray">#333</color>
+    <color name="light_gray">#EEE</color>
+    <color name="edit_gray">#B9B9B9</color>
+
+    <color name="unselected">#697282</color>
+    <color name="background_gray">#DDD</color>
+    <color name="shimmer_light">#EEE</color>
+    <color name="card_view_white">#FEFEFE</color>
+
+    <color name="text_light">#555555</color>
+    <color name="text_normal">#4A4A4A</color>
+    <color name="text_title">#231f20</color>
+
+    <color name="main_blue">#0199dd</color>
+    <color name="light_blue">#00aeef</color>
+    <color name="dark_blue">#004a98</color>
+    <color name="dim_blue">#004a9f</color>
+
+    <color name="button_end">#3da5d3</color>
+
+    <color name="divider_center">#007cc4</color>
+
+    <color name="hint">#888</color>
+    <color name="delete">#f93f25</color>
+
+    <color name="translucent_background">#22000000</color>
+    <color name="translucent_expanded_live_view_background">#aa000000</color>
+
+    <color name="text_shadow">#7F000000</color>
+    <color name="debug">#FF69B4</color>
+
+
+    <color name="possible_result_points">#c0ffbd21</color> <!-- Android standard ICS color -->
+    <color name="result_view">#b0000000</color>
+    <color name="status_text">#ffffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="viewfinder_laser">#ffcc0000</color> <!-- Android standard ICS color -->
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="viewfinder_frame">#ff88ae00</color>
+    <color name="menu_text_color">#249bf0</color>
+    <color name="menu_text_color_up">#ffffff</color> <!-- 白色 -->
+    <color name="title_right_text_color">#ffffff</color> <!-- 白色 -->
+
+    <color name="editbtn_bg">#00000000</color>
+    <color name="bg">#ffffff</color> <!-- 总体背景色 -->
+    <color name="liveviewbg">#ff444444</color>
+    <color name="listviewbg">#ffffff</color> <!-- 白色 -->
+    <color name="mainbg">#A9A9A9</color> <!-- 暗灰色 -->
+    <color name="lightblue">#87CEFA</color> <!-- 亮天蓝色 -->
+    <color name="deepblue">#3366cc</color> <!-- 深蓝#003399 -->
+    <color name="live_list_bg_color">#87CEFA</color>
+    <color name="live_list_sel_bg_def">#00000000</color>
+    <color name="live_list_sel_bg_color">#48D1CC</color>
+    <color name="begonia_red">#DB5A6B</color>
+    <color name="baolan">#7f6495ED</color>
+    <color name="hide_btn_press_red">#CD5C5C</color>
+    <color name="timebar_time_color_normal">#00FF00</color>
+    <color name="timebar_time_color_alarm">#FF0000</color>
+    <color name="timebar_time_color_motion">#FFFF00</color>
+    <color name="timebar_time_color_io">#0000FF</color>
+    <color name="show_timebar_time_color">#ffffff</color>
+    <color name="pre_btn_bg">#8000ff00</color>
+    <color name="title_btn_pre">#87CEFA</color>
+    <color name="item_text_color">#000000</color>
+    <color name="sel_channel_btn_pre_stroke">#6699ff</color>
+    <color name="sel_channel_btn_foc">#87CEFA</color>
+    <color name="sel_channel_btn_pre_solid">#3366cc</color>
+    <color name="sel_channel_btn_def">#2F7EE9</color>
+    <color name="calendar_color">#00000000</color>
+    <color name="calendar_week_title">#878787</color>
+    <color name="calendar_cell_touched">#900000ff</color>
+    <color name="calendar_cell_today">#640000ff</color>
+    <color name="calendar_cell_bg">#ffffff</color>
+    <color name="calendar_line1">#ff0000ff</color>
+    <color name="calendar_graycell_text">#888888</color>
+    <color name="calendar_ltgraycell_text">#888888</color>
+    <color name="calendar_paint_def">#000000</color>
+    <color name="playinfo_text">#000000</color>
+    <color name="bot_btn_def">#6387b5</color>
+    <color name="bot_btn_pre">#4c7cba</color>
+    <color name="live_type_btn_sel">#2298f2</color>
+    <color name="live_type_btn_def">#000000</color>
+    <color name="live_type_btn_def_pad">#ffffff</color>
+    <color name="live_type_btn_bg">#2298f2</color>
+    <color name="live_type_btn_pre">#3366cc</color>
+    <color name="playwindow_select_color">#ffc108</color>
+    <color name="playwindow_noselect_color">#ffffff</color>
+    <color name="title_top_menu_color">#2298f2</color>
+    <color name="title_bottom_menu_color">#f2f2f2</color>
+    <color name="video_window_bg">#1f1f1f</color>
+    <color name="sel_channel_text_color">#1f1f1f</color>
+    <color name="space_line_color">#b5b5b5</color>
+    <color name="sel_channel_text_bgcolor">#f2f2f2</color>
+    <color name="live_toolbar_color">#ffffff</color>
+    <color name="click_btn_bg_color">#ffc108</color>
+    <color name="list_transparent">#33000000</color>
+    <color name="ptz_btn_line_color">#000000</color>
+    <color name="show_time_bar_text_color">#2298f2</color>
+    <color name="show_timebar_line_color">#ffc108</color>
+    <color name="cal_time_bar_text_color">#1f1f1f</color>
+    <color name="cal_time_bar_color">#484d52</color>
+    <color name="time_bar_bg">#ffffff</color>
+    <color name="button_float_bg_color">#2298f2</color>
+    <color name="title_grid_menu_color">#f2f2f2</color>
+    <color name="title_snapshot_display_color">#ff2496f2</color>
+    <color name="title_menu_btn_color">#097fd9</color>
+    <color name="alarm_item_no_sel_color">#f93f25</color>
+    <color name="alarm_msg_icon_bg_color">#f93f25</color>
+    <color name="green">#00FF00</color>
+    <color name="thumbColor">#66aaaaaa</color>
+    <color name="del_btn_bg_color">#f93f25</color>
+    <color name="sel_day_btn">#ff0000</color>
+    <color name="palyback_set_playtype_bg">#F0F0F0</color>
+    <color name="terms_btn_color">#ff0000</color>
+    <color name="terms_textview_color">#0000ff</color>
+    <color name="terms_textview_sel_color">#d90a81</color>
+    <color name="relaymode_timer_color">#ffff00</color>
+    <color name="statusbar_color">#cc3d3d3d</color>
+    <color name="statusbar_textview_color">#ffffffff</color>
+
+    <color name="button_click_ripple_color">#d3d3d3</color>
+    <color name="button_background_color">#336699</color>
+
+    <color name="can_click_text_color">#fbb040</color>
+    <color name="squarebg_color">#BDBEC2</color>
+    <color name="imagegrid_header_color">#ff33b5e5</color>
+
+    <color name="list_transparent_click">#33000000</color>
+    <color name="transparent_menu">#00000000</color>
+
+    <color name="cal_timebar_line_color">#A9A9A9</color>
+    <color name="cal_timebar_textview_color">#A9A9A9</color>
+    <color name="cal_timebar_text_color">#ffc108</color>
+
+    <color name="wifitextbg">#efeff4</color>
+    <color name="wifitext">#848484</color>
+    <color name="privacypolicy_text_color">#336699</color>
+    <color name="calendar_bg">#f5f5f5</color>
+    <color name="listview_divider_line">#dcdcdf</color>
+
+    <color name="alertdialog_line">#c6c6c6</color>
+    <color name="actionsheet_blue">#037BFF</color>
+
+    <color name="google_link_bg_color">#2298F2</color>
+    <color name="gray_bg">#CFD3D9</color>
+    <color name="gray_bg2">#64887e7e</color>
+    <color name="gray_bg3">#DBDBEA</color>
+    <color name="gray_bg4">#E7E4E4</color>
+    <color name="red_bg">#FF7373</color>
+    <color name="blue_color">#69B9F6</color>
+    <color name="blue2_color">#3367D6</color>
+    <color name="blue3_color">#3ACCE1</color>
+    <color name="blue4_color">#097FD9</color>
+    <color name="blue5_color">#2699FB</color>
+
+    <color name="blue_grey">#88919F</color>
+    <color name="orange_bg">#FF9057</color>
+    <color name="orange_bg2">#FFBB98</color>
+    <color name="motion_set_bg">#F0EFF7</color>
+    <color name="gray_bg5">#727272</color>
+
+    <color name="common_white">#ffffff</color>
+    <color name="common_black">#231f20</color>
+    <color name="transparent_black">#66231f20</color>
+    <color name="common_grey">#7c8695</color>
+    <color name="common_white_with_alpha">#aae0e0e0</color>
+
+    <color name="common_dark_blue">#004a98</color>
+    <color name="common_light_blue">#00aeef</color>
+
+    <color name="small_text_color">#7C8695</color>
+    <color name="big_text_color">#231f20</color>
+    <color name="common_dim_blue">#004a9f</color>
+    <color name="common_text_color">#4A4A4A</color>
+    <color name="highlighted_text_color">#4A98F7</color>
+
+    <color name="common_button_start_color">#0199dd</color>
+    <color name="common_button_centre_color">#2ca2d6</color>
+    <color name="common_button_end_color">#3da5d3</color>
+    <color name="common_divider_centre_color">#007cc4</color>'
+
+    <color name="common_error_hint_color">#FA4616</color>
+    <color name="radio_button_selected_color">#ff33b5e5</color>
+    <color name="radio_button_unselected_color">#e0e0e0</color>
+    <color name="modes_active_green">#66aa33</color>
+
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">LandmarkRemark</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_menu_search">Search</string>
+    <string name="title_menu_collections">Collections</string>
+    <string name="title_menu_edit">Edit</string>
+    <string name="title_menu_profile">Me</string>
+
+</resources>
