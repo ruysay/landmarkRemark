@@ -7,12 +7,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.landmarkremark.R
+import com.example.landmarkremark.models.LocationData
 import com.example.landmarkremark.ui.collections.CollectionsFragment
 import com.example.landmarkremark.ui.profile.ProfileFragment
 import com.example.landmarkremark.ui.search.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     BottomNavigationView.OnNavigationItemSelectedListener {
@@ -50,11 +52,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun setViewModels() {
+        val locations = intent.getParcelableArrayListExtra<LocationData>(LocationData::class.java.simpleName)
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
+        mainViewModel.setLocations(locations)
         mainViewModel.getLocations().observe(this, Observer {
+            Timber.d("getLocations - main: ${it?.size}")
 
         })
+
+//        mainViewModel.writeNote()
+//        mainViewModel.getLocations()
     }
 
     /**

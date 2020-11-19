@@ -5,5 +5,24 @@
     <string name="title_menu_collections">Collections</string>
     <string name="title_menu_edit">Edit</string>
     <string name="title_menu_profile">Me</string>
+    <string name="common_back">Back</string>
+    <string name="common_next">Next</string>
+    <string name="search_fragment_hint">search_fragment_hint</string>
+    <string name="common_confirm">Ok</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="location_permission_alert_title">Location Permission</string>
+    <string name="location_permission_alert_message">To help facilitate the process, We would like to lookup your current location</string>
+    <string name="sign_in_title">Welcome</string>
+    <string name="sign_in_social_hint">or sign in with</string>
+    <string name="sign_in_email_hint">Your email address</string>
+    <string name="sign_in_password_hint">Your password</string>
+    <string name="sign_in_register">Not yet registered?</string>
+    <string name="sign_in_forgot_pw">Forgot Password?</string>
+    <string name="sign_in_remember_me">Remember me</string>
+    <string name="sign_in">Sign In</string>
+    <string name="user_email_blank">Email must not be empty.</string>
+    <string name="user_email_incorrect">Incorrect email format.</string>
+    <string name="user_password_length_limit">The password length must be between 6–32 characters.</string>
+    <string name="user_password_blank">Password must not be empty</string>
 
 </resources>

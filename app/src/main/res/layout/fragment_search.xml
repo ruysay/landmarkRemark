@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_location_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.landmarkremark.ui.search.SearchFragment">
+
+    <TextView
+        android:id="@+id/search_location_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/d_din_bold"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/search_fragment_hint"
+        android:textColor="@color/text_title"
+        android:textSize="@dimen/text_title"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/search_location_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:gravity="center|start"
+        android:minHeight="50dp"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintEnd_toStartOf="@id/search_location_edit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_location_title" />
+
+    <ImageView
+        android:id="@+id/search_location_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:paddingStart="@dimen/padding_medium"
+        android:paddingEnd="@dimen/padding_medium"
+        android:src="@drawable/ic_edit"
+        android:tint="@color/main_blue"
+        app:layout_constraintBottom_toBottomOf="@id/search_location_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/search_location_text" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/search_location_map"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/search_location_next"
+        app:layout_constraintTop_toBottomOf="@id/search_location_text" />
+
+    <NumberPicker
+        android:id="@+id/search_location_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:descendantFocusability="blocksDescendants"
+        android:theme="@style/CountryPickerStyle"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/search_location_next"
+        app:layout_constraintTop_toBottomOf="@id/search_location_title" />
+
+    <TextView
+        android:id="@+id/search_location_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large"
+        android:padding="@dimen/padding_large"
+        android:text="@string/common_back"
+        app:layout_constraintBottom_toBottomOf="@id/search_location_next"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/search_location_next" />
+
+    <Button
+        android:id="@+id/search_location_next"
+        style="@style/Button"
+        android:layout_width="wrap_content"
+        android:layout_margin="@dimen/margin_large"
+        android:text="@string/common_next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

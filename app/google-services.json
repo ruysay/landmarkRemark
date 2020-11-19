@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "149523168851-bea8btsv05ugmtb7g8itvo0ge0hf13f4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.landmarkremark",
+            "certificate_hash": "c28a8c6627b48e76ca6fc0cc08e6afe8a2bb1457"
+          }
+        },
+        {
           "client_id": "149523168851-dlrj93pb9c9qijgb6ep65ipbfjtd6rh2.apps.googleusercontent.com",
           "client_type": 3
         }

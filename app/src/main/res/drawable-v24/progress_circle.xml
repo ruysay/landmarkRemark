@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ * Copyright © 2019 Swann. All rights reserved.
+  ~ *
+  ~ * Developed by Lawrence Chiang on 5/14/19 10:40 AM.
+  ~ * Last modified 5/14/19 10:40 AM.
+  -->
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromDegrees="0"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:toDegrees="720">
+    <shape
+        android:shape="ring"
+        android:thickness="4dp"
+        android:useLevel="false">
+
+        <gradient
+            android:angle="0"
+            android:endColor="@color/light_blue"
+            android:startColor="@android:color/transparent"
+            android:type="sweep"
+            android:useLevel="false" />
+    </shape>
+</rotate>
