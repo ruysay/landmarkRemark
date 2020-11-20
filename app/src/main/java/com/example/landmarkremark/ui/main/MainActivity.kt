@@ -91,10 +91,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (itemId) {
             R.id.navigation_bottom_search -> {
                 main_nav_view.menu.findItem(R.id.navigation_search).isChecked = true
+//                replaceActiveFragment(searchFragment, itemId)
             }
 
             R.id.navigation_bottom_collections -> {
                 main_nav_view.menu.findItem(R.id.navigation_collections).isChecked = true
+//                replaceActiveFragment(collectionsFragment, itemId)
             }
 
             R.id.navigation_bottom_profile -> {
@@ -110,17 +112,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      * Bottom navigation items will replace the current active fragment
      */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        Timber.d("checkFragment - onNavigationItemSelected: $item")
+
+        main_drawer_layout.closeDrawers()
         when (item.itemId) {
-            R.id.navigation_search -> {
+            R.id.navigation_bottom_search -> {
+                Timber.d("checkFragment - search")
                 replaceActiveFragment(searchFragment, item.itemId)
             }
-            R.id.navigation_collections -> {
+            R.id.navigation_bottom_collections -> {
+                Timber.d("checkFragment - collection")
+                replaceActiveFragment(collectionsFragment, item.itemId)
+            }
+            R.id.navigation_bottom_edit -> {
 
             }
-            R.id.navigation_edit -> {
-
-            }
-            R.id.navigation_profile -> {
+            R.id.navigation_bottom_profile -> {
 
             }
 

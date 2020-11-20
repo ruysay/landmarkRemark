@@ -16,6 +16,10 @@ class MainViewModel : ViewModel() {
         return repository.getLocations()
     }
 
+    fun getMyLocations() : MutableList<LocationData>? {
+        return repository.getMyLocations()
+    }
+
     fun writeNote() {
         return repository.writeNote()
     }

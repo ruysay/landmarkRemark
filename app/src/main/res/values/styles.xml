@@ -158,4 +158,13 @@
     <style name="Switch" parent="AppTheme">
         <item name="android:colorControlActivated">@color/main_blue</item>
     </style>
+
+    <style name="AdapterItemText">
+        <item name="android:textColor">@color/item_text_color</item>
+        <item name="android:layout_marginStart">@dimen/collection_item_spacing</item>
+        <item name="android:layout_marginEnd">@dimen/collection_item_spacing</item>
+        <item name="android:fontFamily">@font/d_din</item>
+        <item name="android:textSize">@dimen/text_small</item>
+    </style>
+
 </resources>
