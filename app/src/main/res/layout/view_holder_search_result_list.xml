@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/search_result_item_height"
+    android:layout_marginStart="@dimen/margin_medium"
+    android:layout_marginEnd="@dimen/margin_medium"
+    android:layout_marginTop="@dimen/margin_xsmall">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:id="@+id/search_result_list_container">
+
+        <ImageView
+            android:id="@+id/search_result_icon"
+            android:layout_margin="@dimen/search_result_item_spacing"
+            android:layout_width="@dimen/search_result_thumbnail_height"
+            android:layout_height="@dimen/search_result_thumbnail_width"
+            android:layout_marginStart="@dimen/search_result_item_spacing"
+            android:layout_marginEnd="@dimen/search_result_item_spacing"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/search_result_item_guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.15"
+            android:orientation="vertical"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/search_result_item_guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.83"
+            android:orientation="vertical"/>
+        <LinearLayout
+            android:id="@+id/search_result_info_container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/search_result_item_spacing"
+            app:layout_constraintStart_toEndOf="@+id/search_result_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+            <TextView
+                android:id="@+id/search_result_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/AdapterItemText"/>
+
+            <TextView
+                android:id="@+id/search_result_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/AdapterItemText"
+                android:layout_marginTop="@dimen/search_result_item_spacing"
+                />
+
+            <TextView
+                android:id="@+id/search_result_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/search_result_item_spacing"
+                style="@style/AdapterItemText"/>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
