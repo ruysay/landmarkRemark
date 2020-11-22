@@ -1,5 +1,7 @@
 package com.example.landmarkremark.ui.collections
 
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +15,8 @@ import com.example.landmarkremark.interfaces.RecyclerViewListener
 import com.example.landmarkremark.models.LocationData
 import com.squareup.picasso.Picasso
 import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CollectionsAdapter (val onRecyclerViewOnClickListener: RecyclerViewListener) : RecyclerView.Adapter<CollectionsAdapter.CollectionViewHolder>() {
 
@@ -37,10 +41,11 @@ class CollectionsAdapter (val onRecyclerViewOnClickListener: RecyclerViewListene
     }
 
     class CollectionViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val container: ConstraintLayout = view.findViewById(R.id.collection_list_container)
-        val title: TextView = view.findViewById(R.id.collection_title)
-        val description: TextView = view.findViewById(R.id.collection_description)
-        val icon: ImageView = view.findViewById(R.id.collection_icon)
+        private val container: ConstraintLayout = view.findViewById(R.id.collection_list_container)
+        private val title: TextView = view.findViewById(R.id.collection_title)
+        private val description: TextView = view.findViewById(R.id.collection_description)
+        private val time: TextView = view.findViewById(R.id.collection_created_time)
+        private val icon: ImageView = view.findViewById(R.id.collection_icon)
 
         fun onBind(position: Int, collectionList: List<LocationData>, listener: RecyclerViewListener) {
             val locationData = collectionList[position]
@@ -52,27 +57,20 @@ class CollectionsAdapter (val onRecyclerViewOnClickListener: RecyclerViewListene
                 listener.onRecyclerViewItemClickListener(locationData)
             }
 
-            val imageId = R.drawable.ic_collections//getImageIdByType(NotificationEnum.fromValue(locationData.alarmType))
+            val imageId = R.drawable.ic_close_black//getImageIdByType(NotificationEnum.fromValue(locationData.alarmType))
 
             title.text = locationData.title
-            Timber.d("checkLocationData: $locationData")
             description.text = locationData.description
-            Picasso.get().load(imageId).placeholder(R.drawable.gray_background)
-                .into(icon)
-        }
 
-//        private fun getImageIdByType(info: NotificationEnum?): Int {
-//            if (info == null) {
-//                return R.drawable.ic_alarm_info
-//            }
-//            return when (info) {
-//                NotificationEnum.VideoLoss -> R.drawable.ic_normal_record
-//                NotificationEnum.Motion -> R.drawable.ic_motion_record
-//                NotificationEnum.Person -> R.drawable.ic_person_record
-//                else -> {
-//                    R.drawable.ic_alarm_info
-//                }
-//            }
-//        }
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
+            locationData.createdTime?.let {
+                val nowTime = dateFormat.format(Date(locationData.createdTime.toLong()))
+                time.text = nowTime
+            }
+
+            Picasso.get().load("https://i.imgur.com/tGbaZCY.jpg").placeholder(R.drawable.gray_background).into(icon)
+
+//            Picasso.get().load(imageId).placeholder(R.drawable.gray_background).into(icon)
+        }
     }
 }

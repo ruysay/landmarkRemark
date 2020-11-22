@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.landmarkremark.models.LocationData
 import com.example.landmarkremark.utilities.SharedPreferenceUtils
-import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -19,13 +18,16 @@ object MainRepository {
     private val searchedLocations = MutableLiveData<List<LocationData>>()
 
     private var accessToken: String? = null
+    private var creatorName: String? = null
+
     private var firebaseUser: FirebaseUser? = null
-    private var locationId: String? = null
+    private var baseLocationId: String? = null
 
     init {
         dbRef = database.getReference("locations")
-        locationId = dbRef.push().key
+        baseLocationId = dbRef.push().key
         accessToken = SharedPreferenceUtils.getAccessToken()
+        creatorName = SharedPreferenceUtils.getEmail()
         firebaseUser = FirebaseAuth.getInstance().currentUser
 //         addDataChangeListener()
     }
@@ -98,20 +100,21 @@ object MainRepository {
     fun writeNote(
         title: String,
         description: String,
-        lat: Double? = -38.0,
-        lng: Double? = 143.0,
+        lat: Double? = -37.8136,
+        lng: Double? = 144.9631,
         extra: String? = "",
         visibility: String? = "public",
         imageUrl: String? = ""
     ) {
         accessToken ?: return
 
+        val createdTime = Date().time.toString()
         val location = LocationData(
-            null,
             title,
             description,
-            Date().time.toString(),
+            createdTime,
             accessToken,
+            creatorName,
             lat,
             lng,
             extra,
@@ -119,9 +122,10 @@ object MainRepository {
             imageUrl
         )
 
-        locationId?.let {
-            dbRef.child(it).setValue(location)
+        baseLocationId?.let {
+            dbRef.child(it+createdTime).setValue(location)
         }
+        getLocations()
     }
 
     fun search(keyWord: String? = null) {
@@ -137,8 +141,7 @@ object MainRepository {
                 for (locationSnapShot: DataSnapshot in snapshot.children) {
                     val location = locationSnapShot.getValue(LocationData::class.java)
                     location?.let {
-                        if(it.title?.contains(keyWord) == true) {
-                            Timber.d("checkSearch - found: $location")
+                        if(it.title?.contains(keyWord) == true || it.creatorName?.contains(keyWord) == true) {
                             newLocationList.add(it)
                         }
                     }

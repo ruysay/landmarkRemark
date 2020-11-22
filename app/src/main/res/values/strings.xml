@@ -26,11 +26,13 @@
     <string name="user_password_blank">Password must not be empty</string>
     <string name="msg_no_locations">No Noted Locations</string>
     <string name="msg_un_noted_location">No Description at this location</string>
-    <string name="title_my_location">My Location</string>
+    <string name="title_new_location">New Location</string>
     <string name="add_location_note_hint"><u>Add Note</u></string>
     <string name="add_location_note_info_title_hint">Title</string>
     <string name="add_location_note_info_description_hint">Description</string>
     <string name="search_hint">Search...</string>
-
-
+    <string name="add_location_note_title">Add note for your location</string>
+    <string name="profile_name_title">Signed in as</string>
+    <string name="profile_notes_title">Noted locations</string>
+    <string name="add_location_note_info_visibility_checkbox_hint">Set as public note</string>
 </resources>

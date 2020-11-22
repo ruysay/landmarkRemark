@@ -67,6 +67,9 @@ class ExploreFragment : Fragment(), LocationListener, RecyclerViewListener {
     private var haveAskedPermission = false
     private var haveSetUI = false
 
+    private var myLocation: LatLng? = null
+    private var myAddress: String? = null
+
     private lateinit var locationInfoContainer: CardView
     private lateinit var locationInfoFold: ImageView
     private lateinit var locationInfoImage: ImageView
@@ -135,6 +138,7 @@ class ExploreFragment : Fragment(), LocationListener, RecyclerViewListener {
                 updateMapWithNotes(it)
             } else {
                 mainViewModel.getLocations()
+                mainViewModel.getMyLocations()
             }
         })
 
@@ -195,13 +199,11 @@ class ExploreFragment : Fragment(), LocationListener, RecyclerViewListener {
 
     private fun updateMapWithNotes(locations: List<LocationData>) {
         val accessToken = SharedPreferenceUtils.getAccessToken()
-        Timber.d("checkPosition -->updateMapWithNotes: $accessToken - ${::map.isInitialized}")
         if (::map.isInitialized) {
             for (data: LocationData in locations) {
-                if (data.lat != null && data.long != null) {
+                if (data.lat != null && data.lng != null) {
                     val markOptions = MarkerOptions()
                     if (data.creatorId == accessToken) {
-                        Timber.d("checkPosition spot my note: ${data.title}")
                         markOptions.icon(
                             BitmapDescriptorFactory.defaultMarker(
                                 BitmapDescriptorFactory.HUE_GREEN
@@ -214,12 +216,11 @@ class ExploreFragment : Fragment(), LocationListener, RecyclerViewListener {
                             )
                         )
                     }
-                    markOptions.title(data.title!!).position(LatLng(data.lat, data.long))
+                    markOptions.title(data.title!!).position(LatLng(data.lat, data.lng))
                     map.addMarker(markOptions)
                 }
             }
         }
-        Timber.d("checkPosition <--updateMapWithNotes")
     }
 
     private fun showMapUI() {
@@ -317,12 +318,12 @@ class ExploreFragment : Fragment(), LocationListener, RecyclerViewListener {
         }
     }
 
-    private var myLocation: LatLng? = null
+
     private fun updateLocation(latLng: LatLng) {
         if (::map.isInitialized) {
             marker?.remove()
             marker =
-                map.addMarker(MarkerOptions().position(latLng).title(getString(R.string.title_my_location)))
+                map.addMarker(MarkerOptions().position(latLng).title(getString(R.string.title_new_location)))
             marker?.isVisible = true
             map.animateCamera(
                 CameraUpdateFactory.newCameraPosition(
@@ -369,17 +370,17 @@ class ExploreFragment : Fragment(), LocationListener, RecyclerViewListener {
                 updateLocation(LatLng(it.latitude, it.longitude))
                 addressFromLatLng = geocoder.getFromLocation(it.latitude, it.longitude, 1)
             }
-            locationInfoTitle.text = getString(R.string.title_my_location)
+            locationInfoTitle.text = getString(R.string.title_new_location)
             locationInfoDescription.text = getString(R.string.msg_un_noted_location)
         } else {
-            updateLocation(LatLng(locationData.lat!!, locationData.long!!))
-            addressFromLatLng = geocoder.getFromLocation(locationData.lat, locationData.long, 1)
+            updateLocation(LatLng(locationData.lat!!, locationData.lng!!))
+            addressFromLatLng = geocoder.getFromLocation(locationData.lat, locationData.lng, 1)
             locationInfoTitle.text = locationData.title
             locationInfoDescription.text = locationData.description
         }
         if (!addressFromLatLng.isNullOrEmpty()) {
-            val address = addressFromLatLng[0].getAddressLine(0)
-            locationInfoDescription.text = locationInfoDescription.text.toString() + "\n$address"
+            myAddress = addressFromLatLng[0].getAddressLine(0)
+            locationInfoDescription.text = locationInfoDescription.text.toString() + "\n$myAddress"
         }
         locationInfoDescriptionAdd.visibility = if (showAdd == true) VISIBLE else GONE
         locationInfoContainer.animate().alpha(1f).translationY(0f).duration = 250
@@ -454,6 +455,8 @@ class ExploreFragment : Fragment(), LocationListener, RecyclerViewListener {
         locationInfoDescriptionAdd.setOnClickListener {
             val intent = Intent(it.context, AddLocationNoteActivity::class.java)
             intent.putExtra("latLng", myLocation)
+            intent.putExtra("address", myAddress)
+
             (it.context as MainActivity).startActivityForResult(
                 intent,
                 ADD_LOCATION_NOTE_REQUEST_CODE

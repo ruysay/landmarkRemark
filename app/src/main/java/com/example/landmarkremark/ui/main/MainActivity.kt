@@ -106,14 +106,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (itemId) {
             R.id.navigation_bottom_explore -> {
                 main_nav_view.menu.findItem(R.id.navigation_explore).isChecked = true
+                actionBarLogo.setImageResource(R.drawable.ic_explore)
                 actionBarTitle.text = getString(R.string.title_menu_explore)
             }
             R.id.navigation_bottom_collections -> {
                 main_nav_view.menu.findItem(R.id.navigation_collections).isChecked = true
+                actionBarLogo.setImageResource(R.drawable.ic_collections)
                 actionBarTitle.text = getString(R.string.title_menu_collections)
             }
             R.id.navigation_bottom_profile -> {
                 main_nav_view.menu.findItem(R.id.navigation_profile).isChecked = true
+                actionBarLogo.setImageResource(R.drawable.ic_profile)
                 actionBarTitle.text = getString(R.string.title_menu_profile)
             }
         }

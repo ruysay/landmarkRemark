@@ -99,6 +99,7 @@
                 android:layout_marginBottom="@dimen/margin_medium"
                 android:layout_marginEnd="@dimen/margin_medium"
                 android:textColor="@color/black"
+                android:fontFamily="@font/d_din_bold"
                 android:textSize="@dimen/text_subtitle"
                 android:gravity="center_vertical"
                 app:layout_constraintStart_toEndOf="@+id/explore_location_info_image"
@@ -110,8 +111,8 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_large"
-                android:text="text"
+                android:textSize="@dimen/text_medium"
+                android:fontFamily="@font/d_din"
                 android:layout_marginBottom="@dimen/margin_medium"
                 app:layout_constraintStart_toStartOf="@+id/explore_location_info_title"
                 app:layout_constraintTop_toBottomOf="@+id/explore_location_info_title"
@@ -127,10 +128,10 @@
                 android:textColor="@color/main_blue"
                 android:textSize="@dimen/text_large"
                 android:layout_marginBottom="@dimen/margin_medium"
+                android:fontFamily="@font/d_din"
                 android:padding="@dimen/padding_small"
                 app:layout_constraintStart_toStartOf="@+id/explore_location_info_title"
                 app:layout_constraintTop_toBottomOf="@+id/explore_location_info_description"
-                app:layout_constraintEnd_toEndOf="@+id/explore_location_info_title"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,9 +12,8 @@ import com.example.landmarkremark.R
 import com.example.landmarkremark.interfaces.RecyclerViewListener
 import com.example.landmarkremark.models.LocationData
 import com.squareup.picasso.Picasso
-import timber.log.Timber
 
-class SearchResultAdapter(val onRecyclerViewOnClickListener: RecyclerViewListener) : RecyclerView.Adapter<SearchResultAdapter.SearchResultViewHolder>() {
+class SearchResultAdapter(private val onRecyclerViewOnClickListener: RecyclerViewListener) : RecyclerView.Adapter<SearchResultAdapter.SearchResultViewHolder>() {
 
     private var searchResultList: MutableList<LocationData> = mutableListOf()
 
@@ -28,7 +27,6 @@ class SearchResultAdapter(val onRecyclerViewOnClickListener: RecyclerViewListene
 
     override fun onBindViewHolder(holder: SearchResultViewHolder, position: Int) {
         holder.onBind(position, searchResultList, onRecyclerViewOnClickListener)
-
     }
 
     fun setList(dataList: MutableList<LocationData>?) {
@@ -55,7 +53,6 @@ class SearchResultAdapter(val onRecyclerViewOnClickListener: RecyclerViewListene
             val imageId = R.drawable.ic_collections//getImageIdByType(NotificationEnum.fromValue(locationData.alarmType))
 
             title.text = locationData.title
-            Timber.d("checkLocationData: $locationData")
             description.text = locationData.description
             Picasso.get().load(imageId).placeholder(R.drawable.gray_background)
                 .into(icon)

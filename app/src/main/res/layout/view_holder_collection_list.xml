@@ -64,11 +64,12 @@
                 />
 
             <TextView
-                android:id="@+id/collection_info"
+                android:id="@+id/collection_created_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/collection_item_spacing"
-                style="@style/AdapterItemText"/>
+                style="@style/AdapterItemText"
+                android:layout_gravity="end|bottom"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
