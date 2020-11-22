@@ -11,9 +11,9 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/navigation_search"
-            android:icon="@drawable/ic_search"
-            android:title="@string/title_menu_search" />
+            android:id="@+id/navigation_explore"
+            android:icon="@drawable/ic_explore"
+            android:title="@string/title_menu_explore" />
 
         <item
             android:id="@+id/navigation_collections"
@@ -21,14 +21,19 @@
             android:title="@string/title_menu_collections" />
 
         <item
-            android:id="@+id/navigation_edit"
+            android:id="@+id/navigation_add"
             android:icon="@drawable/ic_edit"
-            android:title="@string/title_menu_edit" />
+            android:title="@string/title_menu_add" />
 
         <item
             android:id="@+id/navigation_profile"
             android:icon="@drawable/ic_profile"
             android:title="@string/title_menu_profile" />
+
+        <item
+            android:id="@+id/navigation_search"
+            android:icon="@drawable/ic_profile"
+            android:title="Search" />
     </group>
 
 

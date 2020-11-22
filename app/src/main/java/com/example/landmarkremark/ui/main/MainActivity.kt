@@ -1,7 +1,12 @@
 package com.example.landmarkremark.ui.main
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -10,7 +15,8 @@ import com.example.landmarkremark.R
 import com.example.landmarkremark.models.LocationData
 import com.example.landmarkremark.ui.collections.CollectionsFragment
 import com.example.landmarkremark.ui.profile.ProfileFragment
-import com.example.landmarkremark.ui.search.SearchFragment
+import com.example.landmarkremark.ui.explore.ExploreFragment
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,12 +25,15 @@ import timber.log.Timber
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     BottomNavigationView.OnNavigationItemSelectedListener {
 
+    companion object {
+        const val ADD_LOCATION_NOTE_REQUEST_CODE = 100
+    }
 
     /**
      * MainActivity's fragments
      */
-    private val searchFragment: SearchFragment by lazy {
-        SearchFragment()
+    private val exploreFragment: ExploreFragment by lazy {
+        ExploreFragment()
     }
     private val collectionsFragment: CollectionsFragment by lazy {
         CollectionsFragment()
@@ -35,34 +44,39 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var mainViewModel: MainViewModel
 
-    lateinit var activeFragment: Fragment
+    private lateinit var activeFragment: Fragment
+
+    /**
+     * Action right bar buttons
+     */
+    private lateinit var actionBarLogo: ImageView
+    private lateinit var actionBarTitle: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-//        setActionBar()
+        setActionBar()
         setViewModels()
         setNavController()
-//        setMenu()
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
     private fun setViewModels() {
-        val locations = intent.getParcelableArrayListExtra<LocationData>(LocationData::class.java.simpleName)
+        val locations =
+            intent.getParcelableArrayListExtra<LocationData>(LocationData::class.java.simpleName)
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         mainViewModel.setLocations(locations)
         mainViewModel.getLocations().observe(this, Observer {
             Timber.d("getLocations - main: ${it?.size}")
-
         })
+    }
 
-//        mainViewModel.writeNote()
-//        mainViewModel.getLocations()
+
+    private fun setActionBar() {
+        val actionBar = main_toolbar as MaterialToolbar
+        actionBarLogo = actionBar.findViewById<ImageView>(R.id.action_bar_img_title)
+        actionBarTitle = actionBar.findViewById<TextView>(R.id.action_bar_text_title)
+        setSupportActionBar(actionBar)
     }
 
     /**
@@ -70,17 +84,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      */
     private fun setNavController() {
         // Set selected item to be live view
-        main_bottom_nav_view.selectedItemId = R.id.navigation_bottom_search
+        main_bottom_nav_view.selectedItemId = R.id.navigation_bottom_explore
 
         // Set drawer's item onSelectedListener
         main_bottom_nav_view.setOnNavigationItemSelectedListener(this)
         main_nav_view.setNavigationItemSelectedListener(this)
 
         // Set active fragment to live fragment
-        activeFragment = searchFragment
-        supportFragmentManager.beginTransaction().add(R.id.main_fragment_container, activeFragment).commit()
+        activeFragment = exploreFragment
+        supportFragmentManager.beginTransaction().add(R.id.main_fragment_container, activeFragment)
+            .commit()
 
-        setActionBarButtons(R.id.navigation_bottom_search)
+        setActionBarButtons(R.id.navigation_bottom_explore)
     }
 
     /**
@@ -89,20 +104,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      */
     private fun setActionBarButtons(itemId: Int) {
         when (itemId) {
-            R.id.navigation_bottom_search -> {
-                main_nav_view.menu.findItem(R.id.navigation_search).isChecked = true
-//                replaceActiveFragment(searchFragment, itemId)
+            R.id.navigation_bottom_explore -> {
+                main_nav_view.menu.findItem(R.id.navigation_explore).isChecked = true
+                actionBarTitle.text = getString(R.string.title_menu_explore)
             }
-
             R.id.navigation_bottom_collections -> {
                 main_nav_view.menu.findItem(R.id.navigation_collections).isChecked = true
-//                replaceActiveFragment(collectionsFragment, itemId)
+                actionBarTitle.text = getString(R.string.title_menu_collections)
             }
-
             R.id.navigation_bottom_profile -> {
                 main_nav_view.menu.findItem(R.id.navigation_profile).isChecked = true
+                actionBarTitle.text = getString(R.string.title_menu_profile)
             }
-
         }
     }
 
@@ -116,21 +129,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         main_drawer_layout.closeDrawers()
         when (item.itemId) {
-            R.id.navigation_bottom_search -> {
+            R.id.navigation_bottom_explore -> {
                 Timber.d("checkFragment - search")
-                replaceActiveFragment(searchFragment, item.itemId)
+                replaceActiveFragment(exploreFragment, item.itemId)
             }
             R.id.navigation_bottom_collections -> {
                 Timber.d("checkFragment - collection")
                 replaceActiveFragment(collectionsFragment, item.itemId)
             }
-            R.id.navigation_bottom_edit -> {
-
-            }
             R.id.navigation_bottom_profile -> {
-
+                Timber.d("checkFragment - profile")
+                replaceActiveFragment(profileFragment, item.itemId)
             }
-
         }
         return true
     }
@@ -142,14 +152,34 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (activeFragment != fragment) {
             if (supportFragmentManager.fragments.contains(fragment)) {
                 // Show fragment if supportFragmentManager contains it
-                supportFragmentManager.beginTransaction().show(fragment).hide(activeFragment).commit()
+                supportFragmentManager.beginTransaction().show(fragment).hide(activeFragment)
+                    .commit()
             } else {
                 // Add fragment if supportFragmentManager doesn't contain it
-                supportFragmentManager.beginTransaction().add(R.id.main_fragment_container, fragment).hide(activeFragment).commit()
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.main_fragment_container, fragment).hide(activeFragment).commit()
             }
 
             activeFragment = fragment
         }
         setActionBarButtons(itemId)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            ADD_LOCATION_NOTE_REQUEST_CODE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    mainViewModel.getLocations()
+                }
+            }
+        }
+    }
+
+    fun goToExploreFragment(locationData: LocationData? = null) {
+        if (activeFragment != exploreFragment) {
+            exploreFragment.showLocationInfo(locationData)
+            main_bottom_nav_view.findViewById<View>(R.id.navigation_bottom_explore).callOnClick()
+        }
     }
 }

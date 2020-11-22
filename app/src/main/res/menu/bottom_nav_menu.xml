@@ -8,19 +8,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_bottom_search"
-        android:icon="@drawable/ic_search"
-        android:title="@string/title_menu_search" />
+        android:id="@+id/navigation_bottom_explore"
+        android:icon="@drawable/ic_explore"
+        android:title="@string/title_menu_explore" />
 
     <item
         android:id="@+id/navigation_bottom_collections"
         android:icon="@drawable/ic_collections"
         android:title="@string/title_menu_collections" />
-
-    <item
-        android:id="@+id/navigation_bottom_edit"
-        android:icon="@drawable/ic_edit"
-        android:title="@string/title_menu_edit" />
 
     <item
         android:id="@+id/navigation_bottom_profile"

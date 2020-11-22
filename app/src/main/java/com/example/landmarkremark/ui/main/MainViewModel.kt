@@ -3,6 +3,7 @@ package com.example.landmarkremark.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.landmarkremark.models.LocationData
+import com.google.android.gms.maps.model.LatLng
 
 class MainViewModel : ViewModel() {
 
@@ -20,7 +21,24 @@ class MainViewModel : ViewModel() {
         return repository.getMyLocations()
     }
 
-    fun writeNote() {
-        return repository.writeNote()
+    fun writeNote(
+          title: String,
+          description: String,
+          lat: Double? = 0.0,
+          lng: Double? = 0.0,
+          extra: String? = "",
+          visibility: String? = "public",
+          imageUrl: String? = ""
+    ) {
+        return repository.writeNote(title, description, lat, lng, extra, visibility, imageUrl)
     }
+
+    fun search(keyWord: String? = null) {
+        return repository.search(keyWord)
+    }
+
+    fun getSearchedLocation(): LiveData<List<LocationData>> {
+        return repository.getSearchedLocation()
+    }
+
 }

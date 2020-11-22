@@ -40,6 +40,8 @@
             android:name=".ui.main.MainActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/MainActivity" />
+        <activity android:name=".ui.add.AddLocationNoteActivity"
+            android:theme="@style/Fullscreen" />
         <activity
             android:name=".ui.StartupActivity"
             android:theme="@style/Fullscreen">

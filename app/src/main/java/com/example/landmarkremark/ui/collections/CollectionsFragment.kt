@@ -12,9 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.landmarkremark.R
 import com.example.landmarkremark.interfaces.RecyclerViewListener
+import com.example.landmarkremark.models.LocationData
 import com.example.landmarkremark.ui.main.MainActivity
 import com.example.landmarkremark.ui.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_collections.*
+import timber.log.Timber
 
 class CollectionsFragment : Fragment(), RecyclerViewListener {
 
@@ -41,12 +43,13 @@ class CollectionsFragment : Fragment(), RecyclerViewListener {
         super.onViewCreated(view, savedInstanceState)
 
         collection_empty.visibility = if(mainViewModel.getMyLocations()?.isNullOrEmpty() == true) VISIBLE else GONE
-        adapter.setNotificationList(mainViewModel.getMyLocations())
+        adapter.setList(mainViewModel.getMyLocations())
         collection_recycler_view.adapter = adapter
         collection_recycler_view.layoutManager = LinearLayoutManager(view.context)
     }
 
     override fun onRecyclerViewItemClickListener(arg1: Any?, arg2: Any?, arg3: Any?) {
-
+        Timber.d("checkSearch item selected: ${arg1 as LocationData}")
+        (context as MainActivity).goToExploreFragment(arg1)
     }
 }
