@@ -14,6 +14,7 @@ import com.example.landmarkremark.widgets.LoadingDialog
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
 class SignInActivity : AppCompatActivity() {
@@ -126,6 +127,20 @@ class SignInActivity : AppCompatActivity() {
     private fun postUserLogin(email: String?, password: String?) {
         val accessToken = Utils.getAccessToken(email, password)
         SharedPreferenceUtils.setAccessToken(accessToken)
+
+        auth.currentUser?.let { firebaseUser ->
+            if (firebaseUser.displayName == null) {
+                val profileUpdates = UserProfileChangeRequest.Builder()
+                    .setDisplayName(SharedPreferenceUtils.getUserName())
+                    .build()
+                firebaseUser.updateProfile(profileUpdates).addOnCompleteListener(this, OnCompleteListener { task ->
+
+                })
+            } else {
+                SharedPreferenceUtils.setUserName(firebaseUser.displayName!!)
+            }
+        }
+
         val intent = Intent(this@SignInActivity, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
