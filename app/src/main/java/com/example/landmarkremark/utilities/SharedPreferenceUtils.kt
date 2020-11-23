@@ -15,6 +15,7 @@ class SharedPreferenceUtils {
         private const val REMEMBER_ME = "remember_me"
         private const val EMAIL = "email"
         private const val PASSWORD = "password"
+        private const val USER_NAME = "user_name"
 
         private val accountSharedPreferences = LandmarkRemarkApplication.getContext()
             .getSharedPreferences(ACCOUNT, Context.MODE_PRIVATE)
@@ -60,6 +61,14 @@ class SharedPreferenceUtils {
 
         fun setPassword(password: String) {
             accountSharedPreferences.edit().putString(PASSWORD, password).apply()
+        }
+
+        fun getUserName(): String? {
+            return accountSharedPreferences.getString(USER_NAME, null)
+        }
+
+        fun setUserName(password: String) {
+            accountSharedPreferences.edit().putString(USER_NAME, password).apply()
         }
     }
 }

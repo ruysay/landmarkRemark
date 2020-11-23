@@ -107,15 +107,31 @@ class SignUpActivity : AppCompatActivity() {
             return
         }
 
-        auth.createUserWithEmailAndPassword(sign_up_email.text.toString(), sign_up_password.text.toString()).addOnCompleteListener(this, OnCompleteListener{ task ->
-            if(task.isSuccessful){
+
+        // Check if user name is blank
+        if (sign_up_user_name.text.isNullOrBlank()) {
+            Snackbar.make(
+                sign_up_container,
+                R.string.user_password_blank, Snackbar.LENGTH_LONG
+            ).show()
+            return
+        }
+
+        auth.createUserWithEmailAndPassword(
+            sign_up_email.text.toString(),
+            sign_up_password.text.toString()
+        ).addOnCompleteListener(this, OnCompleteListener { task ->
+            if (task.isSuccessful) {
                 SharedPreferenceUtils.setEmail(sign_up_email.text.toString())
                 SharedPreferenceUtils.setPassword(sign_up_password.text.toString())
+                SharedPreferenceUtils.setUserName(sign_up_user_name.text.toString())
+
                 SharedPreferenceUtils.setRememberMe(true)
                 Toast.makeText(this, getString(R.string.sign_up_success), Toast.LENGTH_LONG).show()
                 nextPageTimer.cancel()
                 nextPageTimer.start()
-            }else {
+
+            } else {
                 val error = getString(R.string.sign_up_fail, task.exception.toString())
                 Toast.makeText(this, error, Toast.LENGTH_LONG).show()
             }

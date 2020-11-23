@@ -26,7 +26,7 @@ object MainRepository {
     fun init() {
         baseLocationId = dbRef.push().key
         accessToken = SharedPreferenceUtils.getAccessToken()
-        creatorName = SharedPreferenceUtils.getEmail()
+        creatorName = SharedPreferenceUtils.getUserName()
         firebaseUser = FirebaseAuth.getInstance().currentUser
     }
 
@@ -116,17 +116,26 @@ object MainRepository {
                 val newLocationList = mutableListOf<LocationData>()
                 for (locationSnapShot: DataSnapshot in snapshot.children) {
                     val location = locationSnapShot.getValue(LocationData::class.java)
+                    var isAddedToList = false
                     location?.let {
-                        if (it.visibility == "public" && (it.title?.contains(keyWord) == true ||
-                                    it.description?.contains(keyWord) == true ||
-                                    it.creatorName == keyWord ||
-                                    (it.creatorName?.substring(
-                                        0,
-                                        it.creatorName.lastIndexOf("@")
-                                    ) == keyWord))
-                        ) {
-                            newLocationList.add(it)
+                        when {
+                            //ignore non public and locations which was not created by the user
+                            (it.visibility != "public") && it.creatorId != accessToken -> {
+                                isAddedToList = false
+                            }
+                            it.title?.contains(keyWord)  == true -> {
+                                isAddedToList = true
+                            }
+                            it.creatorName?.toLowerCase(Locale.getDefault()) == keyWord.toLowerCase(Locale.getDefault()) -> {
+                                isAddedToList = true
+                            }
+                            //user name is email
+                            it.creatorName?.toLowerCase(Locale.getDefault())?.contains("@") == true &&
+                                    (it.creatorName.substring(0, it.creatorName.lastIndexOf("@")).toLowerCase(Locale.getDefault()) == keyWord.toLowerCase(Locale.getDefault())) -> {
+                                isAddedToList = true
+                            }
                         }
+                        if(isAddedToList) newLocationList.add(it)
                     }
                 }
                 newLocationList.sortByDescending {

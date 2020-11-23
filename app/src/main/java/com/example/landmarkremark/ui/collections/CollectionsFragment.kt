@@ -46,8 +46,8 @@ class CollectionsFragment : Fragment(), RecyclerViewListener {
         mainViewModel.getLocations().observe(viewLifecycleOwner, Observer {
             adapter.setList(mainViewModel.getMyLocations())
             adapter.notifyDataSetChanged()
+            collection_empty.visibility = if(mainViewModel.getMyLocations()?.isNullOrEmpty() == true) VISIBLE else GONE
         })
-        collection_empty.visibility = if(mainViewModel.getMyLocations()?.isNullOrEmpty() == true) VISIBLE else GONE
         collection_recycler_view.adapter = adapter
         collection_recycler_view.layoutManager = LinearLayoutManager(view.context)
     }

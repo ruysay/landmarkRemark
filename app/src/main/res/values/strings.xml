@@ -42,4 +42,7 @@
     <string name="sign_in_fail">Sign in fail\n%s</string>
     <string name="creator_name_txt">Created by %s</string>
     <string name="sign_out"><u>Sign out</u></string>
+    <string name="sign_up_user_name_hint">User name</string>
+    <string name="user_name_blank">User name must not be empty</string>
+
 </resources>

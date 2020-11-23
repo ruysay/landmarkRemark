@@ -39,7 +39,8 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        profile_name_txt.text = SharedPreferenceUtils.getEmail()
+        profile_name_txt.text = SharedPreferenceUtils.getUserName()
+        profile_email_txt.text = SharedPreferenceUtils.getEmail()
         profile_notes_txt.text = mainViewModel.getMyLocations()?.size.toString()
 
         profile_sign_out.setOnClickListener {
