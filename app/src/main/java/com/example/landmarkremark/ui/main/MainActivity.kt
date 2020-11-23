@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var activeFragment: Fragment
 
     /**
-     * Action right bar buttons
+     * Action bar logo and title
      */
     private lateinit var actionBarLogo: ImageView
     private lateinit var actionBarTitle: TextView
@@ -64,13 +64,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val locations =
             intent.getParcelableArrayListExtra<LocationData>(LocationData::class.java.simpleName)
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
+        mainViewModel.init()
         mainViewModel.setLocations(locations)
-        mainViewModel.getLocations().observe(this, Observer {
-            Timber.d("getLocations - main: ${it?.size}")
-        })
     }
-
 
     private fun setActionBar() {
         val actionBar = main_toolbar as MaterialToolbar
@@ -83,14 +79,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      * Set Navigation Controllers
      */
     private fun setNavController() {
-        // Set selected item to be live view
+        // Set selected item to be explore fragment
         main_bottom_nav_view.selectedItemId = R.id.navigation_bottom_explore
 
-        // Set drawer's item onSelectedListener
+        // Set bottom navigation item onSelectedListener
         main_bottom_nav_view.setOnNavigationItemSelectedListener(this)
-        main_nav_view.setNavigationItemSelectedListener(this)
 
-        // Set active fragment to live fragment
+        // Set active fragment to exploreFragment
         activeFragment = exploreFragment
         supportFragmentManager.beginTransaction().add(R.id.main_fragment_container, activeFragment)
             .commit()
@@ -105,17 +100,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun setActionBarButtons(itemId: Int) {
         when (itemId) {
             R.id.navigation_bottom_explore -> {
-                main_nav_view.menu.findItem(R.id.navigation_explore).isChecked = true
                 actionBarLogo.setImageResource(R.drawable.ic_explore)
                 actionBarTitle.text = getString(R.string.title_menu_explore)
             }
             R.id.navigation_bottom_collections -> {
-                main_nav_view.menu.findItem(R.id.navigation_collections).isChecked = true
                 actionBarLogo.setImageResource(R.drawable.ic_collections)
                 actionBarTitle.text = getString(R.string.title_menu_collections)
             }
             R.id.navigation_bottom_profile -> {
-                main_nav_view.menu.findItem(R.id.navigation_profile).isChecked = true
                 actionBarLogo.setImageResource(R.drawable.ic_profile)
                 actionBarTitle.text = getString(R.string.title_menu_profile)
             }
@@ -128,20 +120,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      * Bottom navigation items will replace the current active fragment
      */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        Timber.d("checkFragment - onNavigationItemSelected: $item")
-
         main_drawer_layout.closeDrawers()
         when (item.itemId) {
             R.id.navigation_bottom_explore -> {
-                Timber.d("checkFragment - search")
                 replaceActiveFragment(exploreFragment, item.itemId)
             }
             R.id.navigation_bottom_collections -> {
-                Timber.d("checkFragment - collection")
                 replaceActiveFragment(collectionsFragment, item.itemId)
             }
             R.id.navigation_bottom_profile -> {
-                Timber.d("checkFragment - profile")
                 replaceActiveFragment(profileFragment, item.itemId)
             }
         }
@@ -162,7 +149,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 supportFragmentManager.beginTransaction()
                     .add(R.id.main_fragment_container, fragment).hide(activeFragment).commit()
             }
-
             activeFragment = fragment
         }
         setActionBarButtons(itemId)

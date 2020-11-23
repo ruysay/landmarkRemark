@@ -1,8 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ * Developed by Lawrence Chiang and Steven Lee
-  ~ * Copyright © 2020 Swann Communications. All rights reserved.
-  ~ * Last modified Steven 22/05/20 12:16 PM
-  -->
+<?xml version="1.0" encoding="utf-8"?>
 
 <resources>
     <color name="colorPrimary">@color/white</color>

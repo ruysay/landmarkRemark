@@ -13,7 +13,7 @@ import java.util.*
 object MainRepository {
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    private var dbRef: DatabaseReference
+    private var dbRef: DatabaseReference = FirebaseDatabase.getInstance().getReference("locations")
     private val locations = MutableLiveData<List<LocationData>>()
     private val searchedLocations = MutableLiveData<List<LocationData>>()
 
@@ -23,34 +23,11 @@ object MainRepository {
     private var firebaseUser: FirebaseUser? = null
     private var baseLocationId: String? = null
 
-    init {
-        dbRef = database.getReference("locations")
+    fun init() {
         baseLocationId = dbRef.push().key
         accessToken = SharedPreferenceUtils.getAccessToken()
         creatorName = SharedPreferenceUtils.getEmail()
         firebaseUser = FirebaseAuth.getInstance().currentUser
-//         addDataChangeListener()
-    }
-
-    private fun addDataChangeListener() {
-//        val query = dbRef.child(accessToken!!).orderByValue()
-        dbRef.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
-                Timber.e(error.toException(), "getLocations")
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                Timber.d("getLocation: -->onDataChange")
-                val newLocationList = mutableListOf<LocationData>()
-                for (locationSnapShot: DataSnapshot in snapshot.children) {
-                    val location = locationSnapShot.getValue(LocationData::class.java)
-                    Timber.d("getLocation: $location")
-                    location?.let { newLocationList.add(it) }
-                }
-                Timber.d("getLocation: <--onDataChange")
-                setLocations(newLocationList)
-            }
-        })
     }
 
     fun setLocations(locationDataList: MutableList<LocationData>? = this.locations.value?.toMutableList()) {
@@ -60,7 +37,6 @@ object MainRepository {
                 if (!newLocationList.contains(locationData))
                     newLocationList.add(locationData)
             }
-
         }
         locations.value = newLocationList
     }
@@ -72,19 +48,19 @@ object MainRepository {
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                Timber.d("getLocation: -->onDataChange")
                 val newLocationList = mutableListOf<LocationData>()
                 for (locationSnapShot: DataSnapshot in snapshot.children) {
                     val location = locationSnapShot.getValue(LocationData::class.java)
-                    Timber.d("getLocation: $location")
                     location?.let {
-                        newLocationList.add(it)
+                        // get all public notes and all my private/friendOnly notes
+                        if(it.visibility == "public" || (it.creatorId == accessToken && it.visibility != "public")) {
+                            newLocationList.add(it)
+                        }
                     }
                 }
                 newLocationList.sortByDescending {
                     it.createdTime
                 }
-                Timber.d("getLocation: <--onDataChange")
                 setLocations(newLocationList)
             }
         })
@@ -123,13 +99,13 @@ object MainRepository {
         )
 
         baseLocationId?.let {
-            dbRef.child(it+createdTime).setValue(location)
+            dbRef.child(it + createdTime).setValue(location)
         }
         getLocations()
     }
 
     fun search(keyWord: String? = null) {
-        keyWord?: return
+        keyWord ?: return
 
         dbRef.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
@@ -141,7 +117,14 @@ object MainRepository {
                 for (locationSnapShot: DataSnapshot in snapshot.children) {
                     val location = locationSnapShot.getValue(LocationData::class.java)
                     location?.let {
-                        if(it.title?.contains(keyWord) == true || it.creatorName?.contains(keyWord) == true) {
+                        if (it.visibility == "public" && (it.title?.contains(keyWord) == true ||
+                                    it.description?.contains(keyWord) == true ||
+                                    it.creatorName == keyWord ||
+                                    (it.creatorName?.substring(
+                                        0,
+                                        it.creatorName.lastIndexOf("@")
+                                    ) == keyWord))
+                        ) {
                             newLocationList.add(it)
                         }
                     }
@@ -156,5 +139,12 @@ object MainRepository {
 
     fun getSearchedLocation(): LiveData<List<LocationData>> {
         return searchedLocations
+    }
+
+    fun clear() {
+        baseLocationId = null
+        accessToken = null
+        creatorName = null
+        firebaseUser = null
     }
 }

@@ -1,22 +1,20 @@
 <resources>
-    <string name="app_name">LandmarkRemark</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="app_name">Landmark Remark</string>
     <string name="title_menu_explore">Explore</string>
-    <string name="title_menu_collections">Collections</string>
+    <string name="title_menu_collections">Notes</string>
     <string name="title_menu_add">Add</string>
     <string name="title_menu_profile">Me</string>
     <string name="common_back">Back</string>
     <string name="common_next">Next</string>
-    <string name="explore_fragment_hint">What\'s Nearby?</string>
     <string name="common_confirm">Ok</string>
     <string name="common_cancel">Cancel</string>
     <string name="location_permission_alert_title">Location Permission</string>
-    <string name="location_permission_alert_message">To help facilitate the full functions of this app, We would like to lookup your current location</string>
+    <string name="location_permission_alert_message">To enable full functions of this app, we need to access this device\'s location</string>
     <string name="sign_in_title">Welcome</string>
     <string name="sign_in_social_hint">or sign in with</string>
     <string name="sign_in_email_hint">Your email address</string>
     <string name="sign_in_password_hint">Your password</string>
-    <string name="sign_in_register">Not yet registered?</string>
+    <string name="sign_in_register"><u>Sign up</u></string>
     <string name="sign_in_forgot_pw">Forgot Password?</string>
     <string name="sign_in_remember_me">Remember me</string>
     <string name="sign_in">Sign In</string>
@@ -30,9 +28,18 @@
     <string name="add_location_note_hint"><u>Add Note</u></string>
     <string name="add_location_note_info_title_hint">Title</string>
     <string name="add_location_note_info_description_hint">Description</string>
-    <string name="search_hint">Search...</string>
+    <string name="search_hint">Search with words or user name</string>
     <string name="add_location_note_title">Add note for your location</string>
     <string name="profile_name_title">Signed in as</string>
     <string name="profile_notes_title">Noted locations</string>
     <string name="add_location_note_info_visibility_checkbox_hint">Set as public note</string>
+    <string name="sign_up_title">Create User</string>
+    <string name="sign_up_email_hint">@string/sign_in_email_hint</string>
+    <string name="sign_up_password_hint">@string/sign_in_password_hint</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_up_success">Sign up success\nPlease sign in with your new account</string>
+    <string name="sign_up_fail">Sign up fail\n%s</string>
+    <string name="sign_in_fail">Sign in fail\n%s</string>
+    <string name="creator_name_txt">Created by %s</string>
+    <string name="sign_out"><u>Sign out</u></string>
 </resources>

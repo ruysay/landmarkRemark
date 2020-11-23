@@ -57,8 +57,6 @@ class CollectionsAdapter (val onRecyclerViewOnClickListener: RecyclerViewListene
                 listener.onRecyclerViewItemClickListener(locationData)
             }
 
-            val imageId = R.drawable.ic_close_black//getImageIdByType(NotificationEnum.fromValue(locationData.alarmType))
-
             title.text = locationData.title
             description.text = locationData.description
 
@@ -68,9 +66,7 @@ class CollectionsAdapter (val onRecyclerViewOnClickListener: RecyclerViewListene
                 time.text = nowTime
             }
 
-            Picasso.get().load("https://i.imgur.com/tGbaZCY.jpg").placeholder(R.drawable.gray_background).into(icon)
-
-//            Picasso.get().load(imageId).placeholder(R.drawable.gray_background).into(icon)
+            Picasso.get().load("https://i.imgur.com/ky5h49Z.png").placeholder(R.drawable.gray_background).into(icon)
         }
     }
 }

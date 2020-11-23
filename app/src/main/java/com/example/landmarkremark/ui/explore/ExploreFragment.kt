@@ -42,6 +42,7 @@ import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.model.*
 import kotlinx.android.synthetic.main.fragment_explore.*
 import timber.log.Timber
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -76,6 +77,9 @@ class ExploreFragment : Fragment(), LocationListener, RecyclerViewListener {
     private lateinit var locationInfoTitle: TextView
     private lateinit var locationInfoDescription: TextView
     private lateinit var locationInfoDescriptionAdd: TextView
+    private lateinit var locationInfoCreator: TextView
+    private lateinit var locationInfoCreatedTime: TextView
+
 
     private val searchAdapter: SearchResultAdapter by lazy {
         SearchResultAdapter(this)
@@ -132,6 +136,8 @@ class ExploreFragment : Fragment(), LocationListener, RecyclerViewListener {
         locationInfoTitle = view.findViewById(R.id.explore_location_info_title)
         locationInfoDescription = view.findViewById(R.id.explore_location_info_description)
         locationInfoDescriptionAdd = view.findViewById(R.id.explore_location_info_add)
+        locationInfoCreator = view.findViewById(R.id.explore_location_info_creator_name)
+        locationInfoCreatedTime = view.findViewById(R.id.explore_location_info_created_time)
 
         mainViewModel.getLocations().observe(viewLifecycleOwner, Observer {
             if (::map.isInitialized) {
@@ -325,11 +331,12 @@ class ExploreFragment : Fragment(), LocationListener, RecyclerViewListener {
             marker =
                 map.addMarker(MarkerOptions().position(latLng).title(getString(R.string.title_new_location)))
             marker?.isVisible = true
+            val zoom = if(map.cameraPosition.zoom > 10F) map.cameraPosition.zoom else 10F
             map.animateCamera(
                 CameraUpdateFactory.newCameraPosition(
                     CameraPosition.Builder().target(
                         latLng
-                    ).zoom(10F).tilt(30F).build()
+                    ).zoom(zoom).tilt(30F).build()
                 )
             )
         }
@@ -358,8 +365,6 @@ class ExploreFragment : Fragment(), LocationListener, RecyclerViewListener {
     }
 
     override fun onRecyclerViewItemClickListener(arg1: Any?, arg2: Any?, arg3: Any?) {
-        //Focus to this result
-        Timber.d("checkSearch item selected: ${arg1 as LocationData}")
         showLocationInfo(arg1 as LocationData)
     }
 
@@ -372,16 +377,29 @@ class ExploreFragment : Fragment(), LocationListener, RecyclerViewListener {
             }
             locationInfoTitle.text = getString(R.string.title_new_location)
             locationInfoDescription.text = getString(R.string.msg_un_noted_location)
+            locationInfoCreator.visibility = GONE
+            locationInfoCreatedTime.visibility = GONE
         } else {
             updateLocation(LatLng(locationData.lat!!, locationData.lng!!))
             addressFromLatLng = geocoder.getFromLocation(locationData.lat, locationData.lng, 1)
             locationInfoTitle.text = locationData.title
             locationInfoDescription.text = locationData.description
+
+            val creatorTxt = getString(R.string.creator_name_txt, locationData.creatorName ?: "")
+            locationInfoCreator.text = creatorTxt
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
+            locationData.createdTime?.let {
+                val nowTime = dateFormat.format(Date(locationData.createdTime.toLong()))
+                locationInfoCreatedTime.text = nowTime
+            }
+            locationInfoCreator.visibility = VISIBLE
+            locationInfoCreatedTime.visibility = VISIBLE
         }
         if (!addressFromLatLng.isNullOrEmpty()) {
             myAddress = addressFromLatLng[0].getAddressLine(0)
             locationInfoDescription.text = locationInfoDescription.text.toString() + "\n$myAddress"
         }
+
         locationInfoDescriptionAdd.visibility = if (showAdd == true) VISIBLE else GONE
         locationInfoContainer.animate().alpha(1f).translationY(0f).duration = 250
         locationInfoContainer.visibility = VISIBLE
@@ -453,6 +471,7 @@ class ExploreFragment : Fragment(), LocationListener, RecyclerViewListener {
         }
 
         locationInfoDescriptionAdd.setOnClickListener {
+            hideLocationInfo()
             val intent = Intent(it.context, AddLocationNoteActivity::class.java)
             intent.putExtra("latLng", myLocation)
             intent.putExtra("address", myAddress)

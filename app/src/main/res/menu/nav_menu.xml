@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ * Developed by Lawrence Chiang and Steven Lee
-  ~ * Copyright © 2020 Swann Communications. All rights reserved.
-  ~ * Last modified Steven 16/03/20 11:43 AM
-  -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -35,55 +30,4 @@
             android:icon="@drawable/ic_profile"
             android:title="Search" />
     </group>
-
-
-<!--    <item android:title="@string/title_menu_setting">-->
-<!--        <menu>-->
-<!--            <item-->
-<!--                android:id="@+id/navigation_profile"-->
-<!--                android:icon="@drawable/ic_profile_v2"-->
-<!--                android:title="@string/title_menu_profile" />-->
-
-<!--            <item-->
-<!--                android:id="@+id/navigation_pair"-->
-<!--                android:icon="@drawable/ic_pair_device_v2"-->
-<!--                android:title="@string/title_menu_pair_device" />-->
-
-<!--            <item-->
-<!--                android:id="@+id/navigation_recordings"-->
-<!--                android:icon="@drawable/ic_recordings_v2"-->
-<!--                android:title="@string/title_menu_local_play" />-->
-
-<!--            <item-->
-<!--                android:id="@+id/navigation_dropbox"-->
-<!--                android:icon="@drawable/ic_cloud_storage_v2"-->
-<!--                android:title="@string/title_menu_dropbox" />-->
-
-<!--            <item-->
-<!--                android:id="@+id/navigation_user_manual"-->
-<!--                android:icon="@drawable/ic_user_manual_v2"-->
-<!--                android:title="@string/title_menu_user_manual" />-->
-
-<!--            <item-->
-<!--                android:id="@+id/navigation_about"-->
-<!--                android:icon="@drawable/ic_about_v2"-->
-<!--                android:title="@string/title_about" />-->
-
-<!--            <item-->
-<!--                android:id="@+id/navigation_shop_swann"-->
-<!--                android:icon="@drawable/ic_shop_swann_v2"-->
-<!--                android:title="@string/title_shop_swann" />-->
-
-<!--            <item-->
-<!--                android:id="@+id/navigation_support"-->
-<!--                android:icon="@drawable/ic_support_v2"-->
-<!--                android:title="@string/title_support" />-->
-
-<!--            <item-->
-<!--                android:id="@+id/navigation_sign_out"-->
-<!--                android:icon="@drawable/ic_sign_out_v2"-->
-<!--                android:title="@string/title_menu_sign_out" />-->
-<!--        </menu>-->
-<!--    </item>-->
-
 </menu>

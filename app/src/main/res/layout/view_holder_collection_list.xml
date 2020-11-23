@@ -14,28 +14,13 @@
 
         <ImageView
             android:id="@+id/collection_icon"
-            android:layout_margin="@dimen/collection_item_spacing"
             android:layout_width="@dimen/collection_thumbnail_height"
-            android:layout_height="@dimen/collection_thumbnail_width"
-            android:layout_marginStart="@dimen/collection_item_spacing"
+            android:layout_height="@dimen/collection_thumbnail_height"
+            android:scaleType="centerCrop"
             android:layout_marginEnd="@dimen/collection_item_spacing"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/collection_item_guideline1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.15"
-            android:orientation="vertical"/>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/collection_item_guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.83"
-            android:orientation="vertical"/>
         <LinearLayout
             android:id="@+id/collection_info_container"
             android:layout_width="0dp"

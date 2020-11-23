@@ -8,6 +8,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.landmarkremark.R
@@ -42,8 +43,11 @@ class CollectionsFragment : Fragment(), RecyclerViewListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mainViewModel.getLocations().observe(viewLifecycleOwner, Observer {
+            adapter.setList(mainViewModel.getMyLocations())
+            adapter.notifyDataSetChanged()
+        })
         collection_empty.visibility = if(mainViewModel.getMyLocations()?.isNullOrEmpty() == true) VISIBLE else GONE
-        adapter.setList(mainViewModel.getMyLocations())
         collection_recycler_view.adapter = adapter
         collection_recycler_view.layoutManager = LinearLayoutManager(view.context)
     }

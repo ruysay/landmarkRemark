@@ -50,12 +50,14 @@ class SearchResultAdapter(private val onRecyclerViewOnClickListener: RecyclerVie
                 listener.onRecyclerViewItemClickListener(locationData)
             }
 
-            val imageId = R.drawable.ic_collections//getImageIdByType(NotificationEnum.fromValue(locationData.alarmType))
-
+            val imageId = R.drawable.ic_explore
             title.text = locationData.title
             description.text = locationData.description
-            Picasso.get().load(imageId).placeholder(R.drawable.gray_background)
-                .into(icon)
+
+            Picasso.get().load("https://i.imgur.com/ky5h49Z.png").placeholder(R.drawable.gray_background).into(icon)
+
+//            Picasso.get().load(imageId).placeholder(R.drawable.gray_background)
+//                .into(icon)
         }
     }
 }

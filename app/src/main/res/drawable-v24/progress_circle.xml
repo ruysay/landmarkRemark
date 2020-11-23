@@ -1,9 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ * Copyright © 2019 Swann. All rights reserved.
-  ~ *
-  ~ * Developed by Lawrence Chiang on 5/14/19 10:40 AM.
-  ~ * Last modified 5/14/19 10:40 AM.
-  -->
+<?xml version="1.0" encoding="utf-8"?>
 <rotate xmlns:android="http://schemas.android.com/apk/res/android"
     android:fromDegrees="0"
     android:pivotX="50%"

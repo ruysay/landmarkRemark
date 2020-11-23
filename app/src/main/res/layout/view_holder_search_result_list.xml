@@ -14,11 +14,10 @@
 
         <ImageView
             android:id="@+id/search_result_icon"
-            android:layout_margin="@dimen/search_result_item_spacing"
             android:layout_width="@dimen/search_result_thumbnail_height"
             android:layout_height="@dimen/search_result_thumbnail_width"
-            android:layout_marginStart="@dimen/search_result_item_spacing"
             android:layout_marginEnd="@dimen/search_result_item_spacing"
+            android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

@@ -5,18 +5,14 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatActivity
 import com.example.landmarkremark.R
-import com.example.landmarkremark.models.LocationData
 import com.example.landmarkremark.ui.main.MainActivity
 import com.example.landmarkremark.ui.main.MainRepository
 import com.example.landmarkremark.ui.signin.SignInActivity
 import com.example.landmarkremark.utilities.SharedPreferenceUtils
-import io.reactivex.disposables.Disposable
 
 class StartupActivity : AppCompatActivity() {
-    private lateinit var disposable: Disposable
+
     private var isGoingToSignInActivity: Boolean = false
-
-
     private val nextPageTimer = object : CountDownTimer(2000, 2000) {
         override fun onFinish() {
             if (isGoingToSignInActivity) {
@@ -43,8 +39,8 @@ class StartupActivity : AppCompatActivity() {
         if (SharedPreferenceUtils.getAccessToken().isNullOrBlank()) {
             isGoingToSignInActivity = SharedPreferenceUtils.getAccessToken().isNullOrBlank()
         } else {
+            //load locations with access token
             MainRepository.getLocations()
-
         }
 
         if(!SharedPreferenceUtils.getRememberMe()) {
@@ -56,9 +52,4 @@ class StartupActivity : AppCompatActivity() {
         nextPageTimer.cancel()
         nextPageTimer.start()
     }
-
-    private fun getLocationList(): MutableList<LocationData>? {
-        return MainRepository.getLocations().value?.toMutableList()
-    }
-
 }

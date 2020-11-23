@@ -3,14 +3,17 @@ package com.example.landmarkremark.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.landmarkremark.models.LocationData
-import com.google.android.gms.maps.model.LatLng
 
 class MainViewModel : ViewModel() {
 
     private val repository = MainRepository
 
+    fun init() {
+        repository.init()
+    }
+
     fun setLocations(locationData: MutableList<LocationData>? = getLocations().value?.toMutableList()) {
-        repository.setLocations()
+        repository.setLocations(locationData)
     }
 
     fun getLocations() : LiveData<List<LocationData>> {
