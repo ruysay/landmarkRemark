@@ -1,93 +1,107 @@
+
 # Landmark Remark Native Android App
 
 Landmark Remark native Android app fulfills the backlogs below by integrating Google Map SDK and Firebase services. This app uses MVVM architecture to enable a clear flow making the code easier to maintain and extend in the future.
 
 # Backlog
-Below sub tasks are created to complete the requirements
+Below sub-tasks are created to estimate the efforts to complete the requirements
 
 ### 1.  As a user (of the application) I can see my current location on a map
    - Implementation of UI design
-	   - ExploreFragment
-	   - Google MapView
+      - ExploreFragment
+      - Google MapView
    - Implementation of Working flow
+	   - Add Google Maview to ExploreFragment
+       - Map info, marker and gesture opertation
 
 ### 2. As a user I can save a short note at my current location
    - Preparation/Study of Firebase Realtime DB services
    - Implementation of UI design
-	   - AddLocationNoteActivity : The reasons why adding a location note is an activity level component instead of a fragment in MainActivity are:
-		   1. Reduce the complexity of  MainActivity
-		   2. Decouple working flow for further development
+      - AddLocationNoteActivity : The reasons why adding a location note is an activity level component instead of a fragment in MainActivity are:
+         1. Reduce the complexity of  MainActivity
+         2. Decouple working flow for further development such as location update and multimedia support
    - Implementation of Working flow
-   - Integration of DB relevant APIs
+   - Integration of Firebase DB relevant APIs
 
 ### 3. As a user I can see notes that I have saved at the location they were saved on the map
 - Implementation of UI design
-	- My Notes screen: CollectionsAdapter
+   - My Notes screen "Notes": CollectionFragment + CollectionsAdapter
+     (The component of this screen is named "CollectionFragment" for further support of "Favorite" notes or "Friend's" note)
 - Implementation of Working flow
 - Integration of DB APIs
-	- Fetch noted locations based on creatorId
+   - Fetch noted locations based on creatorId
 
 ### 4. As a user I can see the location, text, and user-name of notes other users have saved
 - Implementation of UI design
-	- Other user's location notes will be presented on ExploreFragment
-	- Location info view to provide detail location info when user click on a locaton marker
+	- Update Location Info view
 - Implementation of Working flow
+	- Other user's location notes will be presented on ExploreFragment
+   - Location info view to provide detail location info when user click on a locaton marker
 - Integration of get note API
 
 ### 5. As a user I have the ability to search for a note based on contained text or user-name
 - Implementation of UI design
-	- Update ExploreFragment: add SearchView + ResultAdapter
+   - Update ExploreFragment: add SearchView + ResultAdapter
 - Implementation of Working flow
-	- Implement functions to search
-	- Filter results by creator name,  note visibility, contained text in note title and description.
+   - Implement functions to search location notes
+   - Filter results by creator name,  note visibility, contained text in note title and description.
 - Integration of search note API(search note based on key words, user name)
 
 # Integration of Cloud Services
 
 Among the BaaS providers below
 
-       Firebase ( https://firebase.google.com )
-       Kumulos ( https://www.kumulos.com )
-	   Realm ( https://realm.io/products/realm-mobile-platform)
+      Firebase ( https://firebase.google.com )
+      Kumulos ( https://www.kumulos.com )
+      Realm ( https://realm.io/products/realm-mobile-platform)
 
-I choosed Firebase as my backend service because I used Firebase Messaging and Analystics before, it looks more familar to me though I have not used their DB and Auth service. So to setup and integrate the Firebase service for this project, there will be some learning curve there but should not be an issue if time permits.
+I choosed **Firebase** as my backend service because I used Firebase Messaging and Analystics before, it looks more familar to me though I have not used Realtime DB and Auth service. So to setup and integrate the Firebase service for this project, there will be some learning curve there but should not be an issue to know how to use them.
 
-### 1.  Map service: Google Maps API
-Enabled Google Maps SDK for Android on Google developer console
-Generate and restrict the API key as mentioned (https://developers.google.com/maps/documentation/javascript/get-api-key) for Maps Javascript and Direction API
 
-### 2. User Management: Firebase Auth
-Preparation of Map Services
-	   - Create Google Project and enable Google Map API
+### User Management: Firebase Auth
    - Preparation of Firebace project
-	   - Auth - [https://firebase.google.com/docs/auth/android/custom-auth#kotlin+ktx_1](https://firebase.google.com/docs/auth/android/custom-auth#kotlin+ktx_1)
-	   - Realtime Database - [https://firebase.google.com/docs/database/android/start](https://firebase.google.com/docs/database/android/start)
-### 3. DB: Firebase real time DB
+      - Auth - [https://firebase.google.com/docs/auth/android/custom-auth#kotlin+ktx_1](https://firebase.google.com/docs/auth/android/custom-auth#kotlin+ktx_1)
+- Regarding the user authentication, we only support "Email" + "Password" to sign up and sign in.    [https://firebase.google.com/docs/auth/android/password-auth](https://firebase.google.com/docs/auth/android/password-auth)
+- Although Firebase Auth supports other approaches such as Google sign-in, Facebook Login, and etc, the reason why I use Email + Password to do user authentication are:
+	- At the beginning of the project, I used "Email + Password" as custom user id to manage location note data because I thought there was no time to integrate a user Auth service, but later I realised it is not hard to integrate Firebase Auth and its [passwordAuthentication](https://firebase.google.com/docs/auth/android/password-auth#create_a_password-based_account) API can meets my original design so I move on this approach.
+-  At this moment, user sign up doesn't require email verification, user can register an account if the the email is not in use by other users.
+- After successful sign in, the app will update the user's profile with Firebase Auth API. so the user name which user used in sign up process will be updated.
+
+###  DB: Firebase real time DB
+- Realtime Database - [https://firebase.google.com/docs/database/android/start](https://firebase.google.com/docs/database/android/start)
 Data scheme of a locationData:
 
-	   {
-	       title: String
-	       description: String
-	       createdTime: String [UTC timeStamp, app will convert it to Date time]
-	       creatorId: String [hash of email+encryption]
-	       creatorName: String [ can be user's email or user name]
-	       lat: Double [from -90 to 90]
-	       lng: Double [from -180 to 180]
-	       tags: Object [list of Strings, for latter extension]
-	       extra: String [for later extension use]
-	       visibility: String [To indicate who can view this note: public, private, friendOnly(has not implemented yet)]
-	       imageUrl: String [for later extension]
-	   }
+      {
+          title: String
+          description: String
+          createdTime: String [UTC timeStamp, app will convert it to Date time]
+          creatorId: String [hash of email+encryption]
+          creatorName: String [ can be user's email or user name]
+          lat: Double [from -90 to 90]
+          lng: Double [from -180 to 180]
+          tags: Object [list of Strings, for later extension]
+          extra: String [for later extension]
+          visibility: String [To indicate who can view this note: public, private, **friendOnly(has not implemented yet)**]
+          imageUrl: String [for later extension]
+      }
 
+  ### 3.  Map service: Google Maps API
+  Before integrating Google Maps to the app, here are some pre-integrations to go through.
+-	Create Google Project
+-	Enabled Google Maps SDK for Android on Google developer console
+Generate and restrict the API key as mentioned (https://developers.google.com/maps/documentation/android-sdk/start#step_4_set_up_a_google_maps_api_key)
+- With the Google API key above, we can start working on MapView in the app
 # App structure
 the diagram below shows overview of the project structure
 ![project structure](https://i.imgur.com/YiecPDK.png)
 
+  [View]  ---------------------- [ViewModel] -----------------------[Model]
+											MainViewModel								Firebase realtime DB
 
 # App flow
 
 ### 0. User sign up/ sing in
-       After successful sign in, user will be navigated to MainActivity and its default fragment: ExploreFragment will be showing.
+   - After successful sign in, user will be navigated to MainActivity and its default fragment: ExploreFragment will be showing.
 
 ### 1.  As a user (of the application) I can see my current location on a map
    - By default, user's current or last known location will be used as default location for ExploreFragment
@@ -126,14 +140,17 @@ Hours spent on implementing the app:
 - App Architecture & UX Design - 2 hrs
 - Implementation - 12 hrs
 - Tuning + bug fix - 4 hrs
-
+  
 
 # Known Issues
 1. Location info doesn't present after creating a new location note.
+2. User management flow needs refinement
+3. User cannot create location note after sign out/sign in with another account, restart app will fix it.
 
 # ToDos
 1. Firebase Auth instance can be extracted to repository level
-2. Add image for a location note
-
-
-
+2. Support image/multi-media for a location note
+3. Support location note Update/Detete
+4. Add "like" count to location note
+5. Support updating user's profile
+6. Add "home" icon in top bar in ExploreFragment to allow user to go back to their current location again
