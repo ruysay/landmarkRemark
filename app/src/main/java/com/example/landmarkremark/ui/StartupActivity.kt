@@ -9,8 +9,13 @@ import com.example.landmarkremark.ui.main.MainActivity
 import com.example.landmarkremark.ui.main.MainRepository
 import com.example.landmarkremark.ui.signin.SignInActivity
 import com.example.landmarkremark.utilities.SharedPreferenceUtils
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
+import timber.log.Timber
 
 class StartupActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
 
     private var isGoingToSignInActivity: Boolean = false
     private val nextPageTimer = object : CountDownTimer(2000, 2000) {
@@ -35,12 +40,18 @@ class StartupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_startup)
+        auth = FirebaseAuth.getInstance()
 
-        if (SharedPreferenceUtils.getAccessToken().isNullOrBlank()) {
-            isGoingToSignInActivity = SharedPreferenceUtils.getAccessToken().isNullOrBlank()
-        } else {
-            //load locations with access token
+        val user = auth.currentUser
+        if (user != null) {
+            // User is signed in
+            Timber.d("checkUser - uid: ${user.uid}")
+            //load locations with user Id
             MainRepository.getLocations()
+        } else {
+            // No user is signed in
+            isGoingToSignInActivity = SharedPreferenceUtils.getUserId().isNullOrBlank()
+
         }
 
         if(!SharedPreferenceUtils.getRememberMe()) {

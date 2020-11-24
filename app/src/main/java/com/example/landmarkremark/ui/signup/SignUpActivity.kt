@@ -20,7 +20,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var loadingDialog: LoadingDialog
 
-    private val nextPageTimer = object : CountDownTimer(1000, 1000) {
+    private val nextPageTimer = object : CountDownTimer(1500, 1500) {
         override fun onFinish() {
             overridePendingTransition(R.anim.fade_out, R.anim.fade_in)
             val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
@@ -112,15 +112,19 @@ class SignUpActivity : AppCompatActivity() {
         if (sign_up_user_name.text.isNullOrBlank()) {
             Snackbar.make(
                 sign_up_container,
-                R.string.user_password_blank, Snackbar.LENGTH_LONG
+                R.string.user_name_blank, Snackbar.LENGTH_LONG
             ).show()
             return
         }
 
+        loadingDialog.show(true)
         auth.createUserWithEmailAndPassword(
             sign_up_email.text.toString(),
             sign_up_password.text.toString()
         ).addOnCompleteListener(this, OnCompleteListener { task ->
+            if(!this@SignUpActivity.isDestroyed) {
+                loadingDialog.dismiss()
+            }
             if (task.isSuccessful) {
                 SharedPreferenceUtils.setEmail(sign_up_email.text.toString())
                 SharedPreferenceUtils.setPassword(sign_up_password.text.toString())

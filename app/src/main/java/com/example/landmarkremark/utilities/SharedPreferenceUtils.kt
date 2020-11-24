@@ -11,7 +11,7 @@ class SharedPreferenceUtils {
          * Account Shared Preferences
          */
         private const val ACCOUNT = "account"
-        private const val ACCESS_TOKEN = "access_token"
+        private const val USER_ID = "user_id"
         private const val REMEMBER_ME = "remember_me"
         private const val EMAIL = "email"
         private const val PASSWORD = "password"
@@ -24,19 +24,19 @@ class SharedPreferenceUtils {
             accountSharedPreferences.edit().clear().commit()
         }
 
-        fun getAccessToken(): String? {
-            return accountSharedPreferences.getString(ACCESS_TOKEN, null)
+        fun getUserId(): String? {
+            return accountSharedPreferences.getString(USER_ID, null)
         }
 
         // Set Token in Main Thread because it is needed ASAP in SignInActivity
         @SuppressLint("ApplySharedPref")
-        fun setAccessToken(token: String) {
-            accountSharedPreferences.edit().putString(ACCESS_TOKEN, token).commit()
+        fun setUserId(token: String) {
+            accountSharedPreferences.edit().putString(USER_ID, token).commit()
         }
 
         @SuppressLint("ApplySharedPref")
         fun clearAccessToken() {
-            accountSharedPreferences.edit().remove(ACCESS_TOKEN).commit()
+            accountSharedPreferences.edit().remove(USER_ID).commit()
         }
 
         fun getRememberMe(): Boolean {

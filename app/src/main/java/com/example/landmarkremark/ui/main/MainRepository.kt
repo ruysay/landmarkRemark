@@ -12,12 +12,11 @@ import java.util.*
 
 object MainRepository {
 
-    private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private var dbRef: DatabaseReference = FirebaseDatabase.getInstance().getReference("locations")
     private val locations = MutableLiveData<List<LocationData>>()
     private val searchedLocations = MutableLiveData<List<LocationData>>()
 
-    private var accessToken: String? = null
+    private var userId: String? = null
     private var creatorName: String? = null
 
     private var firebaseUser: FirebaseUser? = null
@@ -25,7 +24,7 @@ object MainRepository {
 
     fun init() {
         baseLocationId = dbRef.push().key
-        accessToken = SharedPreferenceUtils.getAccessToken()
+        userId = SharedPreferenceUtils.getUserId()
         creatorName = SharedPreferenceUtils.getUserName()
         firebaseUser = FirebaseAuth.getInstance().currentUser
     }
@@ -53,7 +52,7 @@ object MainRepository {
                     val location = locationSnapShot.getValue(LocationData::class.java)
                     location?.let {
                         // get all public notes and all my private/friendOnly notes
-                        if(it.visibility == "public" || (it.creatorId == accessToken && it.visibility != "public")) {
+                        if(it.visibility == "public" || (it.creatorId == userId && it.visibility != "public")) {
                             newLocationList.add(it)
                         }
                     }
@@ -69,7 +68,7 @@ object MainRepository {
 
     fun getMyLocations(): MutableList<LocationData>? {
         return locations.value?.filter {
-            it.creatorId == accessToken
+            it.creatorId == userId
         }?.toMutableList()
     }
 
@@ -82,14 +81,14 @@ object MainRepository {
         visibility: String? = "public",
         imageUrl: String? = ""
     ) {
-        accessToken ?: return
+        userId ?: return
 
         val createdTime = Date().time.toString()
         val location = LocationData(
             title,
             description,
             createdTime,
-            accessToken,
+            userId,
             creatorName,
             lat,
             lng,
@@ -120,7 +119,7 @@ object MainRepository {
                     location?.let {
                         when {
                             //ignore non public and locations which was not created by the user
-                            (it.visibility != "public") && it.creatorId != accessToken -> {
+                            (it.visibility != "public") && it.creatorId != userId -> {
                                 isAddedToList = false
                             }
                             it.title?.contains(keyWord)  == true -> {
@@ -152,7 +151,7 @@ object MainRepository {
 
     fun clear() {
         baseLocationId = null
-        accessToken = null
+        userId = null
         creatorName = null
         firebaseUser = null
     }

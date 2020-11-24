@@ -204,7 +204,7 @@ class ExploreFragment : Fragment(), LocationListener, RecyclerViewListener {
     }
 
     private fun updateMapWithNotes(locations: List<LocationData>) {
-        val accessToken = SharedPreferenceUtils.getAccessToken()
+        val accessToken = SharedPreferenceUtils.getUserId()
         if (::map.isInitialized) {
             for (data: LocationData in locations) {
                 if (data.lat != null && data.lng != null) {

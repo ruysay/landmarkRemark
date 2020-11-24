@@ -126,9 +126,10 @@ class SignInActivity : AppCompatActivity() {
 
     private fun postUserLogin(email: String?, password: String?) {
         val accessToken = Utils.getAccessToken(email, password)
-        SharedPreferenceUtils.setAccessToken(accessToken)
 
         auth.currentUser?.let { firebaseUser ->
+            SharedPreferenceUtils.setUserId(firebaseUser.uid)
+
             if (firebaseUser.displayName == null) {
                 val profileUpdates = UserProfileChangeRequest.Builder()
                     .setDisplayName(SharedPreferenceUtils.getUserName())
