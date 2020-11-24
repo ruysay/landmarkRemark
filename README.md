@@ -10,7 +10,7 @@ Below sub-tasks are created to estimate the efforts to complete the requirements
    - Implementation of UI design
       - ExploreFragment
       - Google MapView
-   - Implementation of Working flow
+   - Implementation of Working flow  
 	   - Add Google Maview to ExploreFragment
        - Map info, marker and gesture opertation
 
@@ -59,8 +59,7 @@ I choosed **Firebase** as my backend service because I used Firebase Messaging a
 
 
 ### User Management: Firebase Auth
-   - Preparation of Firebace project
-      - Auth - [https://firebase.google.com/docs/auth/android/custom-auth#kotlin+ktx_1](https://firebase.google.com/docs/auth/android/custom-auth#kotlin+ktx_1)
+   - Preparation of Firebace Auth - [https://firebase.google.com/docs/auth/android/custom-auth#kotlin+ktx_1](https://firebase.google.com/docs/auth/android/custom-auth#kotlin+ktx_1)
 - Regarding the user authentication, we only support "Email" + "Password" to sign up and sign in.    [https://firebase.google.com/docs/auth/android/password-auth](https://firebase.google.com/docs/auth/android/password-auth)
 - Although Firebase Auth supports other approaches such as Google sign-in, Facebook Login, and etc, the reason why I use Email + Password to do user authentication are:
 	- At the beginning of the project, I used "Email + Password" as custom user id to manage location note data because I thought there was no time to integrate a user Auth service, but later I realised it is not hard to integrate Firebase Auth and its [passwordAuthentication](https://firebase.google.com/docs/auth/android/password-auth#create_a_password-based_account) API can meets my original design so I move on this approach.
@@ -68,7 +67,7 @@ I choosed **Firebase** as my backend service because I used Firebase Messaging a
 - After successful sign in, the app will update the user's profile with Firebase Auth API. so the user name which user used in sign up process will be updated.
 
 ###  DB: Firebase real time DB
-- Realtime Database - [https://firebase.google.com/docs/database/android/start](https://firebase.google.com/docs/database/android/start)
+- Preparation of Realtime Database - [https://firebase.google.com/docs/database/android/start](https://firebase.google.com/docs/database/android/start)
 Data scheme of a locationData:
 
       {
@@ -95,8 +94,15 @@ Generate and restrict the API key as mentioned (https://developers.google.com/ma
 the diagram below shows overview of the project structure
 ![project structure](https://i.imgur.com/YiecPDK.png)
 
-  [View]  ---------------------- [ViewModel] -----------------------[Model]
-											MainViewModel								Firebase realtime DB
+
+App components under MVVM architecture
+
+      [View]  ----------------------> [ViewModel] -----------------------[Model]
+         |    <----------------------      |      -----------------------   |
+      MainActivity					 MainViewModel                Firebase realtime DB
+      ExploreFragment
+      CollectionsFragment
+      ProfileFragment
 
 # App flow
 
@@ -140,7 +146,7 @@ Hours spent on implementing the app:
 - App Architecture & UX Design - 2 hrs
 - Implementation - 12 hrs
 - Tuning + bug fix - 4 hrs
-  
+
 
 # Known Issues
 1. Location info doesn't present after creating a new location note.
@@ -148,6 +154,7 @@ Hours spent on implementing the app:
 3. User cannot create location note after sign out/sign in with another account, restart app will fix it.
 
 # ToDos
+Below are points to improve the UX/performance of this app
 1. Firebase Auth instance can be extracted to repository level
 2. Support image/multi-media for a location note
 3. Support location note Update/Detete
