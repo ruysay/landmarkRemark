@@ -80,8 +80,8 @@ object MainRepository {
         extra: String? = "",
         visibility: String? = "public",
         imageUrl: String? = ""
-    ) {
-        userId ?: return
+    ): LocationData? {
+        userId ?: return null
 
         val createdTime = Date().time.toString()
         val location = LocationData(
@@ -101,6 +101,7 @@ object MainRepository {
             dbRef.child(it + createdTime).setValue(location)
         }
         getLocations()
+        return location
     }
 
     fun search(keyWord: String? = null) {

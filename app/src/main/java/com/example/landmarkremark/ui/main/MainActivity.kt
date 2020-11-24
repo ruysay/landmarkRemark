@@ -3,6 +3,7 @@ package com.example.landmarkremark.ui.main
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
@@ -16,6 +17,7 @@ import com.example.landmarkremark.models.LocationData
 import com.example.landmarkremark.ui.collections.CollectionsFragment
 import com.example.landmarkremark.ui.profile.ProfileFragment
 import com.example.landmarkremark.ui.explore.ExploreFragment
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
@@ -160,6 +162,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             ADD_LOCATION_NOTE_REQUEST_CODE -> {
                 if (resultCode == Activity.RESULT_OK) {
                     mainViewModel.getLocations()
+                    val locationData = intent.getParcelableExtra<LocationData>("locationData")
+                    goToExploreFragment(locationData)
                 }
             }
         }

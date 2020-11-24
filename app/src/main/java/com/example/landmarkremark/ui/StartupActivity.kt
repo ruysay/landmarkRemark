@@ -10,8 +10,6 @@ import com.example.landmarkremark.ui.main.MainRepository
 import com.example.landmarkremark.ui.signin.SignInActivity
 import com.example.landmarkremark.utilities.SharedPreferenceUtils
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
-import timber.log.Timber
 
 class StartupActivity : AppCompatActivity() {
 
@@ -44,9 +42,7 @@ class StartupActivity : AppCompatActivity() {
 
         val user = auth.currentUser
         if (user != null) {
-            // User is signed in
-            Timber.d("checkUser - uid: ${user.uid}")
-            //load locations with user Id
+            // User is signed in, load locations with user Id
             MainRepository.getLocations()
         } else {
             // No user is signed in

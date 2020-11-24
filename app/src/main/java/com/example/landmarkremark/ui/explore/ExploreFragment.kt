@@ -114,7 +114,6 @@ class ExploreFragment : Fragment(), LocationListener, RecyclerViewListener {
                 searchAdapter.setList(mutableListOf())
                 explore_location_search_recycler_view.visibility = GONE
             } else {
-                Timber.d("checkSearch - searchKeyWord:$searchKeyWord")
                 mainViewModel.search(searchKeyWord)
                 searchKeyWord = null
             }
@@ -149,7 +148,6 @@ class ExploreFragment : Fragment(), LocationListener, RecyclerViewListener {
         })
 
         mainViewModel.getSearchedLocation().observe(viewLifecycleOwner, Observer {
-            Timber.d("getSearchedLocation - search")
             if (it.isNotEmpty()) {
                 searchAdapter.setList(it.toMutableList())
                 explore_location_search_recycler_view.visibility = VISIBLE

@@ -32,7 +32,7 @@ class MainViewModel : ViewModel() {
           extra: String? = "",
           visibility: String? = "public",
           imageUrl: String? = ""
-    ) {
+    ): LocationData? {
         return repository.writeNote(title, description, lat, lng, extra, visibility, imageUrl)
     }
 
