@@ -10,9 +10,9 @@ Below sub-tasks are created to estimate the efforts to complete the requirements
    - Implementation of UI design
       - ExploreFragment
       - Google MapView
-   - Implementation of Working flow  
-	   - Add Google Maview to ExploreFragment
-       - Map info, marker and gesture opertation
+   - Implementation of Working flow
+	   - Add Google Mapview to ExploreFragment
+       - Map info, marker and gesture operation
 
 ### 2. As a user I can save a short note at my current location
    - Preparation/Study of Firebase Realtime DB services
@@ -36,7 +36,7 @@ Below sub-tasks are created to estimate the efforts to complete the requirements
 	- Update Location Info view
 - Implementation of Working flow
 	- Other user's location notes will be presented on ExploreFragment
-   - Location info view to provide detail location info when user click on a locaton marker
+   - Location info view to provide detail location info when user click on a location marker
 - Integration of get note API
 
 ### 5. As a user I have the ability to search for a note based on contained text or user-name
@@ -55,11 +55,11 @@ Among the BaaS providers below
       Kumulos ( https://www.kumulos.com )
       Realm ( https://realm.io/products/realm-mobile-platform)
 
-I choosed **Firebase** as my backend service because I used Firebase Messaging and Analystics before, it looks more familar to me though I have not used Realtime DB and Auth service. So to setup and integrate the Firebase service for this project, there will be some learning curve there but should not be an issue to know how to use them.
+I chose **Firebase** as my backend service because I used Firebase Messaging and Analytics before, it looks more familiar to me though I have not used Realtime DB and Auth service. So to setup and integrate the Firebase service for this project, there will be some learning curve there but should not be an issue to know how to use them.
 
 
 ### User Management: Firebase Auth
-   - Preparation of Firebace Auth - [https://firebase.google.com/docs/auth/android/custom-auth#kotlin+ktx_1](https://firebase.google.com/docs/auth/android/custom-auth#kotlin+ktx_1)
+   - Preparation of Firebase Auth - [https://firebase.google.com/docs/auth/android/custom-auth#kotlin+ktx_1](https://firebase.google.com/docs/auth/android/custom-auth#kotlin+ktx_1)
 - Regarding the user authentication, we only support "Email" + "Password" to sign up and sign in.    [https://firebase.google.com/docs/auth/android/password-auth](https://firebase.google.com/docs/auth/android/password-auth)
 - Although Firebase Auth supports other approaches such as Google sign-in, Facebook Login, and etc, the reason why I use Email + Password to do user authentication are:
 	- At the beginning of the project, I used "Email + Password" as custom user id to manage location note data because I thought there was no time to integrate a user Auth service, but later I realised it is not hard to integrate Firebase Auth and its [passwordAuthentication](https://firebase.google.com/docs/auth/android/password-auth#create_a_password-based_account) API can meets my original design so I move on this approach.
@@ -157,7 +157,7 @@ Hours spent on implementing the app:
 Below are points to improve the UX/performance of this app
 1. Firebase Auth instance can be extracted to repository level
 2. Support image/multi-media for a location note
-3. Support location note Update/Detete
+3. Support location note Update/Delete
 4. Add "like" count to location note
 5. Support updating user's profile
 6. Add "home" icon in top bar in ExploreFragment to allow user to go back to their current location again
