@@ -6,18 +6,18 @@ import android.os.CountDownTimer
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.landmarkremark.R
+import com.example.landmarkremark.interfaces.FBUserTaskOnCompleteListener
+import com.example.landmarkremark.ui.main.MainRepository
 import com.example.landmarkremark.ui.signin.SignInActivity
 import com.example.landmarkremark.utilities.SharedPreferenceUtils
 import com.example.landmarkremark.utilities.Utils
 import com.example.landmarkremark.widgets.LoadingDialog
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import timber.log.Timber
 
 class SignUpActivity : AppCompatActivity() {
-    private lateinit var auth: FirebaseAuth
     private lateinit var loadingDialog: LoadingDialog
 
     private val nextPageTimer = object : CountDownTimer(1500, 1500) {
@@ -36,7 +36,6 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-        auth = FirebaseAuth.getInstance()
         loadingDialog = LoadingDialog(this)
         setListeners()
     }
@@ -118,27 +117,25 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         loadingDialog.show(true)
-        auth.createUserWithEmailAndPassword(
-            sign_up_email.text.toString(),
-            sign_up_password.text.toString()
-        ).addOnCompleteListener(this, OnCompleteListener { task ->
-            if(!this@SignUpActivity.isDestroyed) {
-                loadingDialog.dismiss()
-            }
-            if (task.isSuccessful) {
-                SharedPreferenceUtils.setEmail(sign_up_email.text.toString())
-                SharedPreferenceUtils.setPassword(sign_up_password.text.toString())
-                SharedPreferenceUtils.setUserName(sign_up_user_name.text.toString())
 
-                SharedPreferenceUtils.setRememberMe(true)
-                Toast.makeText(this, getString(R.string.sign_up_success), Toast.LENGTH_LONG).show()
-                nextPageTimer.cancel()
-                nextPageTimer.start()
+        MainRepository.createUserWithEmailAndPassword(sign_in_email.text.toString(), sign_in_password.text.toString(), this, object:
+            FBUserTaskOnCompleteListener {
+                override fun onSuccess() {
+                    SharedPreferenceUtils.setEmail(sign_up_email.text.toString())
+                    SharedPreferenceUtils.setPassword(sign_up_password.text.toString())
+                    SharedPreferenceUtils.setUserName(sign_up_user_name.text.toString())
 
-            } else {
-                val error = getString(R.string.sign_up_fail, task.exception.toString())
-                Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+                    SharedPreferenceUtils.setRememberMe(true)
+                    Toast.makeText(this@SignUpActivity, getString(R.string.sign_up_success), Toast.LENGTH_LONG).show()
+                    nextPageTimer.cancel()
+                    nextPageTimer.start()
+                }
+
+                override fun onError(err: Exception?) {
+                    val error = getString(R.string.sign_up_fail, err.toString())
+                    Toast.makeText(this@SignUpActivity, error, Toast.LENGTH_LONG).show()
+                }
             }
-        })
+        )
     }
 }

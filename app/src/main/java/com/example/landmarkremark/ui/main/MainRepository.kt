@@ -1,9 +1,12 @@
 package com.example.landmarkremark.ui.main
 
+import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.landmarkremark.interfaces.FBUserTaskOnCompleteListener
 import com.example.landmarkremark.models.LocationData
 import com.example.landmarkremark.utilities.SharedPreferenceUtils
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -11,6 +14,8 @@ import timber.log.Timber
 import java.util.*
 
 object MainRepository {
+
+    private var auth = FirebaseAuth.getInstance()
 
     private var dbRef: DatabaseReference = FirebaseDatabase.getInstance().getReference("locations")
     private val locations = MutableLiveData<List<LocationData>>()
@@ -27,6 +32,34 @@ object MainRepository {
         userId = SharedPreferenceUtils.getUserId()
         creatorName = SharedPreferenceUtils.getUserName()
         firebaseUser = FirebaseAuth.getInstance().currentUser
+    }
+
+    fun getFirebaseUser(): FirebaseUser? {
+        return auth.currentUser
+    }
+
+    fun signInWithEmailAndPassword(email: String, password: String, activity: Activity, listener: FBUserTaskOnCompleteListener) {
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(activity, OnCompleteListener { task ->
+            if(task.isSuccessful) {
+                listener.onSuccess()
+            }else {
+                listener.onError(task.exception)
+            }
+        })
+    }
+
+    fun createUserWithEmailAndPassword(email: String, password: String, activity: Activity, listener: FBUserTaskOnCompleteListener) {
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(activity, OnCompleteListener { task ->
+            if(task.isSuccessful) {
+                listener.onSuccess()
+            }else {
+                listener.onError(task.exception)
+            }
+        })
+    }
+
+    fun signOut() {
+        auth.signOut()
     }
 
     fun setLocations(locationDataList: MutableList<LocationData>? = this.locations.value?.toMutableList()) {

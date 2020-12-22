@@ -13,18 +13,15 @@ import com.example.landmarkremark.ui.main.MainActivity
 import com.example.landmarkremark.ui.main.MainViewModel
 import com.example.landmarkremark.ui.signin.SignInActivity
 import com.example.landmarkremark.utilities.SharedPreferenceUtils
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment() {
-    private lateinit var auth: FirebaseAuth
     private lateinit var mainViewModel: MainViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         val activity = context as MainActivity
         mainViewModel = ViewModelProvider(activity).get(MainViewModel::class.java)
-        auth = FirebaseAuth.getInstance()
     }
 
     override fun onCreateView(
@@ -44,7 +41,7 @@ class ProfileFragment : Fragment() {
         profile_notes_txt.text = mainViewModel.getMyLocations()?.size.toString()
 
         profile_sign_out.setOnClickListener {
-            auth.signOut()
+            mainViewModel.signOut()
             SharedPreferenceUtils.clearAccessToken()
             SharedPreferenceUtils.clearAccount()
 

@@ -12,6 +12,10 @@ class MainViewModel : ViewModel() {
         repository.init()
     }
 
+    fun signOut() {
+        repository.signOut()
+    }
+
     fun setLocations(locationData: MutableList<LocationData>? = getLocations().value?.toMutableList()) {
         repository.setLocations(locationData)
     }

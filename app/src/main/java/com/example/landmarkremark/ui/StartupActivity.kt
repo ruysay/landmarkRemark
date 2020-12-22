@@ -9,11 +9,8 @@ import com.example.landmarkremark.ui.main.MainActivity
 import com.example.landmarkremark.ui.main.MainRepository
 import com.example.landmarkremark.ui.signin.SignInActivity
 import com.example.landmarkremark.utilities.SharedPreferenceUtils
-import com.google.firebase.auth.FirebaseAuth
 
 class StartupActivity : AppCompatActivity() {
-
-    private lateinit var auth: FirebaseAuth
 
     private var isGoingToSignInActivity: Boolean = false
     private val nextPageTimer = object : CountDownTimer(2000, 2000) {
@@ -38,10 +35,8 @@ class StartupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_startup)
-        auth = FirebaseAuth.getInstance()
 
-        val user = auth.currentUser
-        if (user != null) {
+        if (MainRepository.getFirebaseUser() != null) {
             // User is signed in, load locations with user Id
             MainRepository.getLocations()
         } else {
