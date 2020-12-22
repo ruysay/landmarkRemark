@@ -1,7 +1,9 @@
 package com.example.landmarkremark.ui.main
 
+import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.example.landmarkremark.interfaces.FBUserTaskOnCompleteListener
 import com.example.landmarkremark.models.LocationData
 
 class MainViewModel : ViewModel() {
@@ -46,6 +48,10 @@ class MainViewModel : ViewModel() {
 
     fun getSearchedLocation(): LiveData<List<LocationData>> {
         return repository.getSearchedLocation()
+    }
+
+    fun createUserWithEmailAndPassword(email: String, password: String, activity: Activity, listener: FBUserTaskOnCompleteListener) {
+        repository.createUserWithEmailAndPassword(email, password, activity, listener)
     }
 
 }
