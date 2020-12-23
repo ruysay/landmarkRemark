@@ -19,8 +19,17 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+            def googleMapsApiKey = System.getenv("world_live_cam_google_maps_api_key")
+            resValue "string", "google_maps_api_key", "\"$googleMapsApiKey\""
+        }
+
         release {
             minifyEnabled false
+            def googleMapsApiKey = System.getenv("world_live_cam_google_maps_api_key")
+            resValue "string", "google_maps_api_key", "\"$googleMapsApiKey\""
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
